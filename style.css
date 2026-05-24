@@ -145,8 +145,21 @@ main {
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.6rem;
   width: 100%;
+}
+
+/* Info + slideshow en la misma fila */
+.project-body {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.project-info {
+  flex-shrink: 0;
+  width: 13rem;
+  padding-top: 0.1rem;
 }
 
 .project-header .year {
@@ -161,15 +174,16 @@ main {
   color: var(--color-muted);
   letter-spacing: 0.06em;
   line-height: 1.7;
-  max-width: 18rem;
+  max-width: 13rem;
 }
 
 .project-text {
   font-size: var(--body-size);
   line-height: 1.8;
   color: var(--color-text);
-  max-width: 18rem;
-  margin-bottom: 1.5rem;
+  max-width: 13rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0;
 }
 
 .project-images {
@@ -221,10 +235,10 @@ main {
 /* ── Project slideshow (interior de proyecto) ── */
 .project-slideshow {
   position: relative;
-  width: 100%;
-  height: calc(100vh - var(--header-height) - 10rem);
+  flex: 1;
+  height: calc(100vh - var(--header-height) - 6rem);
   min-height: 420px;
-  margin-top: 0.5rem;
+  margin-top: 0;
 }
 
 .project-slideshow .pslide {
@@ -449,5 +463,13 @@ footer {
 
   .project-slideshow .pslide {
     padding: 0 3rem;
+  }
+
+  .project-body {
+    flex-direction: column;
+  }
+
+  .project-info {
+    width: 100%;
   }
 }
