@@ -133,12 +133,11 @@ main {
 
 /* ── Project single page ── */
 .project-single {
-  max-width: 860px;
-  margin: 0 auto;
+  max-width: 100%;
 }
 
 .project-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .project-header h1 {
@@ -146,7 +145,8 @@ main {
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
+  width: 100%;
 }
 
 .project-header .year {
@@ -161,15 +161,15 @@ main {
   color: var(--color-muted);
   letter-spacing: 0.06em;
   line-height: 1.7;
-  margin-top: 0.15rem;
+  max-width: 18rem;
 }
 
 .project-text {
   font-size: var(--body-size);
   line-height: 1.8;
   color: var(--color-text);
-  max-width: 560px;
-  margin-bottom: 3rem;
+  max-width: 18rem;
+  margin-bottom: 1.5rem;
 }
 
 .project-images {
@@ -222,9 +222,9 @@ main {
 .project-slideshow {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--header-height) - 14rem);
-  min-height: 400px;
-  margin-top: 1rem;
+  height: calc(100vh - var(--header-height) - 10rem);
+  min-height: 420px;
+  margin-top: 0.5rem;
 }
 
 .project-slideshow .pslide {
