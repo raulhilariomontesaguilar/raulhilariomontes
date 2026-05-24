@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roce/Ruse/Ruis — Raúl Hilario Montes</title>
+  <title>Título Proyecto — Raúl Hilario Montes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,60 +22,62 @@
     <a href="projects.html" class="back-link">← Projects</a>
 
     <article class="project-single">
-
       <div class="project-header">
-        <h1>Roce/Ruse/Ruis</h1>
-        <span class="year">2026</span>
+        <h1>Título del Proyecto</h1>
+        <span class="year">2025</span>
       </div>
-
       <div class="project-text">
-        <p>
-          Stainless steel, wheels, vinyl and poems.
-Variable dimensions
-        </p>
+        <p>Materiales, dimensiones, descripción breve.</p>
+      </div>
+    </article>
+
+    <!-- Añade un <div class="pslide"> por cada imagen -->
+    <div class="project-slideshow">
+
+      <div class="pslide active">
+        <img src="images/project-03-img-01.jpg" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/project-03-img-02.jpg" alt="">
       </div>
 
-      <div class="project-images">
+      <button class="pslide-prev" aria-label="Anterior">&#8592;</button>
+      <button class="pslide-next" aria-label="Siguiente">&#8594;</button>
+      <div class="pslide-counter">
+        <span class="pslide-current">1</span> / <span class="pslide-total"></span>
+      </div>
+    </div>
 
-        <figure>
-          <img src="images/buzones1.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption">Título imagen, lugar, 2023</figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones2.png" alt="Imagen del proyecto 02">
-        </figure>
-        <figure>
-          <img src="images/buzones3.png" alt="Imagen del proyecto 02">
-        </figure>
-
-      </div><figure>
-          <img src="images/buzones4.png" alt="Imagen del proyecto 02">
-        </figure>
-<figure>
-          <img src="images/buzones5.png" alt="Imagen del proyecto 02">
-        </figure>
-        <figure>
-          <img src="images/buzones6.png" alt="Imagen del proyecto 02">
-        </figure>
-        <figure>
-          <img src="images/buzones7.png" alt="Imagen del proyecto 02">
-        </figure>
-        <figure>
-          <img src="images/buzones8.png" alt="Imagen del proyecto 02">
-        </figure>
-        <figure>
-          <img src="images/buzones9.png" alt="Imagen del proyecto 02">
-        </figure>
-        <figure>
-          <img src="images/buzones10.png" alt="Imagen del proyecto 02">
-        </figure>
-    </article>
   </main>
 
   <footer>
     <span>© 2025 Raúl Hilario Montes</span>
   </footer>
+
+  <script>
+    const imageSlides = Array.from(document.querySelectorAll('.project-slideshow .pslide'));
+    const total = imageSlides.length;
+    let current = 0;
+    const counterCurrent = document.querySelector('.pslide-current');
+    const counterTotal   = document.querySelector('.pslide-total');
+    counterTotal.textContent = total;
+    function goTo(n) {
+      imageSlides[current].classList.remove('active');
+      current = (n + total) % total;
+      imageSlides[current].classList.add('active');
+      counterCurrent.textContent = current + 1;
+    }
+    document.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
+    document.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
+    setInterval(() => goTo(current + 1), 6000);
+    let touchStartX = 0;
+    const ss = document.querySelector('.project-slideshow');
+    ss.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    ss.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    });
+  </script>
 
 </body>
 </html>

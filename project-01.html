@@ -29,77 +29,96 @@
       </div>
 
       <div class="project-text">
-        <p>
-          Stainless steel, wheels, vinyl and poems.
-Variable dimensions
-        </p>
+        <p>Stainless steel, wheels, vinyl and poems.<br>Variable dimensions</p>
       </div>
 
-      <div class="project-images">
-
-        <figure>
-          <img src="images/buzones1.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-        
-        <figure>
-          <img src="images/buzones2.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/actualizar2.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones4.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones5.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones6.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones7.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones7.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones8.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/buzones9.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-        <figure>
-          <img src="images/actualizar.png" alt="Imagen del proyecto 02">
-          <figcaption class="image-caption"></figcaption>
-        </figure>
-
-
-        
     </article>
+
+    <!-- ── SLIDESHOW DE IMÁGENES ──
+         Añade un <div class="pslide"> por cada imagen.
+         El usuario las pasa con las flechas o arrastrando.
+    ── -->
+    <div class="project-slideshow">
+      <div class="pslide active">
+        <img src="images/buzones1.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones2.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/actualizar2.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones4.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones5.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones6.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones7.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones8.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/buzones9.png" alt="">
+      </div>
+      <div class="pslide">
+        <img src="images/actualizar.png" alt="">
+      </div>
+
+      <!-- Controles -->
+      <button class="pslide-prev" aria-label="Anterior">&#8592;</button>
+      <button class="pslide-next" aria-label="Siguiente">&#8594;</button>
+
+      <!-- Contador -->
+      <div class="pslide-counter">
+        <span class="pslide-current">1</span> / <span class="pslide-total"></span>
+      </div>
+    </div>
+
   </main>
 
   <footer>
     <span>© 2025 Raúl Hilario Montes</span>
   </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.pslide:not(.pslide-prev):not(.pslide-next)');
+    // filtra solo los divs con imagen
+    const imageSlides = Array.from(document.querySelectorAll('.project-slideshow .pslide'));
+    const total = imageSlides.length;
+    let current = 0;
+
+    const counterCurrent = document.querySelector('.pslide-current');
+    const counterTotal   = document.querySelector('.pslide-total');
+    counterTotal.textContent = total;
+
+    function goTo(n) {
+      imageSlides[current].classList.remove('active');
+      current = (n + total) % total;
+      imageSlides[current].classList.add('active');
+      counterCurrent.textContent = current + 1;
+    }
+
+    document.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
+    document.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
+
+    // Pasar automáticamente cada 6 segundos
+    setInterval(() => goTo(current + 1), 6000);
+
+    // Soporte táctil (móvil)
+    let touchStartX = 0;
+    const ss = document.querySelector('.project-slideshow');
+    ss.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    ss.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    });
+  </script>
 
 </body>
 </html>
