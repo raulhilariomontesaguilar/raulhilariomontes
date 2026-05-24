@@ -1,0 +1,398 @@
+/* ─────────────────────────────────────────────────────
+   ARTIST SITE — Minimal Contemporary
+   Tipografía: Museo Sans (via Adobe Fonts / local)
+   Fallback: 'Gill Sans', Futura, sans-serif
+───────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap');
+
+/* Josefin Sans es una alternativa gratuita muy cercana a Museo Sans.
+   Si tienes licencia Adobe Fonts, sustituye por:
+   @import url("https://use.typekit.net/TU_KIT_ID.css");
+   y cambia --font a 'museo-sans', sans-serif; */
+
+:root {
+  --font: 'Josefin Sans', 'Gill Sans', 'Futura', sans-serif;
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-muted: #888888;
+  --color-border: #e0e0e0;
+
+  --nav-size: 0.72rem;
+  --body-size: 0.88rem;
+  --title-size: 0.82rem;
+  --meta-size: 0.72rem;
+
+  --gap: 2.5rem;
+  --page-padding: 2.5rem;
+  --header-height: 3.5rem;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { display: block; width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Base ── */
+html { font-size: 16px; }
+body {
+  font-family: var(--font);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--page-padding);
+  height: var(--header-height);
+}
+
+.site-name {
+  font-size: var(--nav-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  font-size: var(--nav-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color 0.2s;
+  background: none;
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--color-text);
+  background: none;
+}
+
+/* ── Main ── */
+main {
+  flex: 1;
+  padding: var(--gap) var(--page-padding);
+}
+
+/* ── Home — slideshow ── */
+.slideshow-home {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.slideshow {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: calc(100vh - var(--header-height) - 3rem);
+  background: #fff;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 6rem;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Home — project grid ── */
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 3rem var(--gap);
+}
+
+.project-item a {
+  display: block;
+}
+
+.project-cover {
+  overflow: hidden;
+  background: #f4f4f4;
+  margin-bottom: 0.75rem;
+}
+
+.project-cover img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: opacity 0.2s;
+}
+
+.project-item a:hover .project-cover img {
+  opacity: 0.85;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.project-title {
+  font-size: var(--title-size);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-year {
+  font-size: var(--meta-size);
+  color: var(--color-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── Project single page ── */
+.project-single {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.project-header {
+  margin-bottom: 2.5rem;
+}
+
+.project-header h1 {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.project-header .year {
+  font-size: var(--meta-size);
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+}
+
+.project-text {
+  font-size: var(--body-size);
+  line-height: 1.8;
+  color: var(--color-text);
+  max-width: 560px;
+  margin-bottom: 3rem;
+}
+
+.project-images {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project-images img {
+  width: 100%;
+}
+
+.image-caption {
+  font-size: 0.68rem;
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+  margin-top: 0.35rem;
+}
+
+/* ── Projects page (lista completa) ── */
+.projects-page .project-list {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* ── Texts page ── */
+.texts-list {
+  max-width: 640px;
+}
+
+.text-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.text-item:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.text-item h2 {
+  font-size: var(--title-size);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.text-item .text-meta {
+  font-size: var(--meta-size);
+  color: var(--color-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.7rem;
+}
+
+.text-item p {
+  font-size: var(--body-size);
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.text-item a.read-link {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: var(--meta-size);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-text);
+  padding-bottom: 1px;
+}
+
+/* ── CV page ── */
+.cv-page {
+  max-width: 620px;
+}
+
+.cv-bio {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.02em;
+}
+
+.cv-block {
+  margin-bottom: 2.5rem;
+}
+
+.cv-category {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 0.8rem;
+}
+
+.cv-line {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+/* ── Info page ── */
+.info-page {
+  max-width: 540px;
+}
+
+.info-page p {
+  font-size: var(--body-size);
+  line-height: 1.9;
+  margin-bottom: 2rem;
+}
+
+.info-contact {
+  margin-top: 2rem;
+}
+
+.info-contact a {
+  display: block;
+  font-size: var(--body-size);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+  width: fit-content;
+}
+
+.info-contact a:hover {
+  border-color: var(--color-text);
+}
+
+/* ── Page titles (for Texts, CV, Info, Projects) ── */
+.page-title {
+  font-size: var(--meta-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 2.5rem;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 1.5rem var(--page-padding);
+  font-size: var(--meta-size);
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Back link ── */
+.back-link {
+  display: inline-block;
+  font-size: var(--meta-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 2.5rem;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--color-text); }
+
+/* ──────────────────────────────────────────────────
+   RESPONSIVE — móvil
+────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --page-padding: 1.25rem;
+    --gap: 1.75rem;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 1rem var(--page-padding);
+    gap: 0.75rem;
+  }
+
+  nav {
+    gap: 1.25rem;
+  }
+
+  .project-list {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .cv-entry {
+    grid-template-columns: 2.8rem 1fr;
+    gap: 0 1rem;
+  }
+}

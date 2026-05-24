@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raúl Hilario Montes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-name">Raúl Hilario Montes</a>
+    <nav>
+      <a href="projects.html">Projects</a>
+      <a href="texts.html">Texts</a>
+      <a href="cv.html">CV</a>
+      <a href="info.html">Info</a>
+    </nav>
+  </header>
+
+  <main class="home slideshow-home">
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDESHOW DE INICIO
+         Cambia las imágenes aquí. Copia un bloque <div class="slide">
+         por cada imagen del último proyecto.
+    ═══════════════════════════════════════════════════ -->
+    <div class="slideshow">
+
+      <div class="slide active">
+        <img src="images/project-01-img-01.jpg" alt="">
+      </div>
+
+      <div class="slide">
+        <img src="images/project-01-img-02.jpg" alt="">
+      </div>
+
+      <div class="slide">
+        <img src="images/project-01-img-03.jpg" alt="">
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <span>© 2025 Raúl Hilario Montes</span>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function next() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+
+    setInterval(next, 5000);
+  </script>
+
+</body>
+</html>
