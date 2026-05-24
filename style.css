@@ -163,8 +163,8 @@ main {
   padding-top: 1.2rem;
 }
 
-.project-header .project-context,
-.project-header .year {
+.project-context,
+.project-info .year {
   display: block;
   font-size: var(--body-size);
   color: var(--color-text);
