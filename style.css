@@ -89,7 +89,7 @@ nav a.active {
 /* ── Main ── */
 main {
   flex: 1;
-  padding: var(--gap) var(--page-padding);
+  padding: 1.2rem var(--page-padding);
 }
 
 /* ── Home — slideshow ── */
@@ -137,7 +137,7 @@ main {
 }
 
 .project-header {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.3rem;
 }
 
 .project-header h1 {
@@ -145,7 +145,7 @@ main {
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.3rem;
   width: 100%;
 }
 
@@ -420,7 +420,7 @@ footer {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-muted);
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.6rem;
   transition: color 0.15s;
 }
 .back-link:hover { color: var(--color-text); }
