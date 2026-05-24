@@ -145,7 +145,8 @@ main {
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0;
+  margin-top: 0.8rem;
   width: 100%;
 }
 
@@ -162,38 +163,24 @@ main {
   padding-top: 1.2rem;
 }
 
+.project-header .project-context,
 .project-header .year {
   display: block;
   font-size: var(--body-size);
   color: var(--color-text);
   letter-spacing: 0.04em;
-  line-height: 1.8;
-  margin-top: 0.6rem;
-}
-
-.project-header .project-context {
-  display: block;
-  font-size: var(--body-size);
-  color: var(--color-text);
-  letter-spacing: 0.04em;
-  line-height: 1.8;
+  line-height: 2;
   max-width: 13rem;
-}
-
-.project-header .project-context:first-child {
-  font-size: var(--meta-size);
-  letter-spacing: 0.06em;
-  color: var(--color-muted);
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
+  text-transform: none;
 }
 
 .project-text {
   font-size: var(--body-size);
-  line-height: 1.8;
+  line-height: 2;
   color: var(--color-text);
+  letter-spacing: 0.04em;
   max-width: 13rem;
-  margin-top: 0.6rem;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
