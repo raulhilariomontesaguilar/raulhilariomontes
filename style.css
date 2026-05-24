@@ -442,28 +442,45 @@ footer {
 
   .project-body {
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
 
   .project-info {
     width: 100%;
-    padding-top: 0.3rem;
+    padding-top: 0.2rem;
   }
 
   .project-context,
   .project-info .year {
+    font-size: 0.65rem;
+    line-height: 1.6;
     max-width: 100%;
+  }
+
+  .project-text {
+    font-size: 0.65rem;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
+  .project-header h1 {
+    font-size: 0.85rem;
   }
 
   .project-slideshow {
     position: relative;
-    width: 100%;
-    height: 80vw;
-    min-height: 300px;
+    width: calc(100% + 2 * var(--page-padding));
+    margin-left: calc(-1 * var(--page-padding));
+    height: 85vw;
+    min-height: 320px;
     flex: none;
   }
 
   .project-slideshow .pslide {
-    padding: 0 2.5rem;
+    padding: 0 2rem;
+  }
+
+  .pslide-counter {
+    left: var(--page-padding);
   }
 }
