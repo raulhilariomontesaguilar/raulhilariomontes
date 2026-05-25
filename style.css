@@ -293,7 +293,10 @@ main {
   letter-spacing: 0.06em;
 }
 
-/* ── Texts page ── */
+/* ── Segundo bloque de slideshow en mismo proyecto ── */
+.project-body-second {
+  margin-top: 3rem;
+}
 .texts-list {
   max-width: 640px;
 }
