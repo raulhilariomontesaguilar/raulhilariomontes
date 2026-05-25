@@ -34,22 +34,22 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%;
-      opacity: 0;
+      opacity: 0 !important;
       pointer-events: none;
       transition: opacity 0.35s ease, transform 0.35s ease;
       transform: translateX(6%) scale(0.97);
     }
 
     .book-page.active {
-      position: relative;
-      opacity: 1;
+      position: relative !important;
+      opacity: 1 !important;
       pointer-events: auto;
       transform: translateX(0) scale(1);
     }
 
     .book-page.leaving {
-      position: absolute;
-      opacity: 0;
+      position: absolute !important;
+      opacity: 0 !important;
       transform: translateX(-6%) scale(0.97);
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
