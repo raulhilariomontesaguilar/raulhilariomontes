@@ -93,33 +93,44 @@
   </footer>
 
   <script>
-    const imageSlides = Array.from(document.querySelectorAll('.project-slideshow .pslide'));
-    const total = imageSlides.length;
-    let current = 0;
-
-    const counterCurrent = document.querySelector('.pslide-current');
-    const counterTotal   = document.querySelector('.pslide-total');
-    counterTotal.textContent = total;
-
-    function goTo(n) {
-      imageSlides[current].classList.remove('active');
-      current = (n + total) % total;
-      imageSlides[current].classList.add('active');
-      counterCurrent.textContent = current + 1;
-    }
-
-    document.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
-    document.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
-
-    setInterval(() => goTo(current + 1), 6000);
-
-    let touchStartX = 0;
-    const ss = document.querySelector('.project-slideshow');
-    ss.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive: true});
-    ss.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
-    }, {passive: true});
+    document.querySelectorAll('.project-slideshow').forEach(function(ss) {
+      const slides = Array.from(ss.querySelectorAll('.pslide'));
+      const total = slides.length;
+      let current = 0;
+      let blocked = false;
+      const counterCurrent = ss.querySelector('.pslide-current');
+      const counterTotal   = ss.querySelector('.pslide-total');
+      if (counterTotal) counterTotal.textContent = total;
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        current = (n + total) % total;
+        slides[current].classList.add('active');
+        if (counterCurrent) counterCurrent.textContent = current + 1;
+      }
+      ss.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
+      ss.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
+      setInterval(() => goTo(current + 1), 6000);
+      ss.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+        e.preventDefault();
+        if (blocked) return;
+        blocked = true;
+        goTo(e.deltaX > 0 ? current + 1 : current - 1);
+        setTimeout(() => { blocked = false; }, 700);
+      }, { passive: false });
+      let touchStartX = 0, touchStartY = 0;
+      ss.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, {passive: true});
+      ss.addEventListener('touchend', e => {
+        const diffX = touchStartX - e.changedTouches[0].clientX;
+        const diffY = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+          goTo(diffX > 0 ? current + 1 : current - 1);
+        }
+      }, {passive: true});
+    });
   </script>
 
 </body>

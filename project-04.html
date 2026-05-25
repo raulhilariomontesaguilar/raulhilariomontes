@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Título Proyecto — Raúl Hilario Montes</title>
+  <title>Próxima apertura — Raúl Hilario Montes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,52 +30,26 @@
     <div class="project-body">
       <div class="project-info">
         <span class="project-context">Pamfletografía de lo caduco, Málaga</span>
-        <span class="project-context"></span>
         <span class="year">2021</span>
         <div class="project-text">
           <p>Papel contínuo, pintura plástica / Lona remachada / Impresiones. Intervenciones en el espacio público y expositivo.</p>
         </div>
       </div>
 
-      <!-- Añade un <div class="pslide"> por cada imagen -->
-      <div class="project-slideshow">
-        <div class="pslide active">
-          <img src="images/nuevapertura3.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/nuevaaperturagrande.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/detallecartel.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/rompiendo2.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/rompiendo.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/nuevapertura.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/proteo2.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/proteo3.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/proteo1.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/proteo4.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/proteo6.png" alt="">
-        </div>
-        <div class="pslide">
-          <img src="images/ladrillo.png" alt="">
-        </div>
-
+      <!-- SLIDESHOW 1 -->
+      <div class="project-slideshow" id="slideshow-1">
+        <div class="pslide active"><img src="images/nuevapertura3.png" alt=""></div>
+        <div class="pslide"><img src="images/nuevaaperturagrande.png" alt=""></div>
+        <div class="pslide"><img src="images/detallecartel.png" alt=""></div>
+        <div class="pslide"><img src="images/rompiendo2.png" alt=""></div>
+        <div class="pslide"><img src="images/rompiendo.png" alt=""></div>
+        <div class="pslide"><img src="images/nuevapertura.png" alt=""></div>
+        <div class="pslide"><img src="images/proteo2.png" alt=""></div>
+        <div class="pslide"><img src="images/proteo3.png" alt=""></div>
+        <div class="pslide"><img src="images/proteo1.png" alt=""></div>
+        <div class="pslide"><img src="images/proteo4.png" alt=""></div>
+        <div class="pslide"><img src="images/proteo6.png" alt=""></div>
+        <div class="pslide"><img src="images/ladrillo.png" alt=""></div>
 
         <button class="pslide-prev" aria-label="Anterior">&#8592;</button>
         <button class="pslide-next" aria-label="Siguiente">&#8594;</button>
@@ -83,7 +57,28 @@
           <span class="pslide-current">1</span> / <span class="pslide-total"></span>
         </div>
       </div>
+
     </div><!-- /project-body -->
+
+    <!-- SLIDESHOW 2 — segunda obra, debajo -->
+    <div class="project-body project-body-second">
+      <div class="project-info">
+        <!-- Puedes añadir info de la segunda obra aquí si quieres -->
+      </div>
+
+      <div class="project-slideshow" id="slideshow-2">
+        <!-- Añade aquí las imágenes de la segunda obra -->
+        <div class="pslide active"><img src="images/obra2-img1.png" alt=""></div>
+        <div class="pslide"><img src="images/obra2-img2.png" alt=""></div>
+        <div class="pslide"><img src="images/obra2-img3.png" alt=""></div>
+
+        <button class="pslide-prev" aria-label="Anterior">&#8592;</button>
+        <button class="pslide-next" aria-label="Siguiente">&#8594;</button>
+        <div class="pslide-counter">
+          <span class="pslide-current">1</span> / <span class="pslide-total"></span>
+        </div>
+      </div>
+    </div><!-- /project-body-second -->
 
   </main>
 
@@ -92,27 +87,52 @@
   </footer>
 
   <script>
-    const imageSlides = Array.from(document.querySelectorAll('.project-slideshow .pslide'));
-    const total = imageSlides.length;
-    let current = 0;
-    const counterCurrent = document.querySelector('.pslide-current');
-    const counterTotal   = document.querySelector('.pslide-total');
-    counterTotal.textContent = total;
-    function goTo(n) {
-      imageSlides[current].classList.remove('active');
-      current = (n + total) % total;
-      imageSlides[current].classList.add('active');
-      counterCurrent.textContent = current + 1;
-    }
-    document.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
-    document.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
-    setInterval(() => goTo(current + 1), 6000);
-    let touchStartX = 0;
-    const ss = document.querySelector('.project-slideshow');
-    ss.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-    ss.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    // Inicializa cada slideshow de forma independiente
+    document.querySelectorAll('.project-slideshow').forEach(function(ss) {
+      const slides = Array.from(ss.querySelectorAll('.pslide'));
+      const total = slides.length;
+      let current = 0;
+      let blocked = false;
+
+      const counterCurrent = ss.querySelector('.pslide-current');
+      const counterTotal   = ss.querySelector('.pslide-total');
+      if (counterTotal) counterTotal.textContent = total;
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        current = (n + total) % total;
+        slides[current].classList.add('active');
+        if (counterCurrent) counterCurrent.textContent = current + 1;
+      }
+
+      ss.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
+      ss.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
+      setInterval(() => goTo(current + 1), 6000);
+
+      // Trackpad / rueda del ratón horizontal
+      ss.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // scroll vertical → ignorar
+        e.preventDefault();
+        if (blocked) return;
+        blocked = true;
+        goTo(e.deltaX > 0 ? current + 1 : current - 1);
+        setTimeout(() => { blocked = false; }, 700);
+      }, { passive: false });
+
+      // Touch móvil
+      let touchStartX = 0;
+      let touchStartY = 0;
+      ss.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, {passive: true});
+      ss.addEventListener('touchend', e => {
+        const diffX = touchStartX - e.changedTouches[0].clientX;
+        const diffY = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+          goTo(diffX > 0 ? current + 1 : current - 1);
+        }
+      }, {passive: true});
     });
   </script>
 
