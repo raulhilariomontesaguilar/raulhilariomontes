@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómo escribí este poema y dónde está Cumpián — Raúl Hilario Montes</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .book-viewer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 0 3rem 0;
+    }
+
+    .book-stage {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .book-pages {
+      position: relative;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+      overflow: hidden;
+      min-height: 200px;
+    }
+
+    .book-page {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateX(6%) scale(0.97);
+    }
+
+    .book-page.active {
+      position: relative;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .book-page.leaving {
+      position: absolute;
+      opacity: 0;
+      transform: translateX(-6%) scale(0.97);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .book-page img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .book-spine {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to right,
+        rgba(0,0,0,0.06),
+        rgba(0,0,0,0.12),
+        rgba(0,0,0,0.06));
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .book-controls {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .book-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--font);
+      transition: color 0.15s;
+      padding: 0.5rem;
+    }
+
+    .book-btn:hover { color: var(--color-text); }
+    .book-btn:disabled { opacity: 0.2; cursor: default; }
+
+    .book-counter {
+      font-size: 0.68rem;
+      color: var(--color-muted);
+      letter-spacing: 0.08em;
+      min-width: 4rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .book-stage { max-width: 100%; }
+      .book-spine { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-name">Raúl Hilario Montes</a>
+    <nav>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="texts.html">Texts</a>
+      <a href="cv.html">CV</a>
+      <a href="info.html">Info</a>
+    </nav>
+  </header>
+
+  <main>
+    <a href="projects.html" class="back-link">← Projects</a>
+
+    <article class="project-single">
+      <div class="project-header">
+        <h1>Cómo escribí este poema y dónde está Cumpián</h1>
+      </div>
+    </article>
+
+    <div class="project-body" style="margin-bottom: 1.5rem;">
+      <div class="project-info">
+        <span class="project-context">Málaga</span>
+        <span class="year">2021</span>
+        <div class="project-text">
+          <p>Poemario.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-viewer">
+      <div class="book-stage">
+        <div class="book-pages" id="bookPages">
+          <div class="book-spine"></div>
+        </div>
+      </div>
+      <div class="book-controls">
+        <button class="book-btn" id="btnPrev">&#8592; Anterior</button>
+        <span class="book-counter" id="bookCounter"></span>
+        <button class="book-btn" id="btnNext">Siguiente &#8594;</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer><span>© 2025 Raúl Hilario Montes</span></footer>
+
+  <script>
+    // Lista de imágenes en orden
+    const images = [
+      'images/poema.png',
+      'images/poema2.png',
+      'images/poema3.png',
+      'images/poema4.png',
+      'images/poema5.png',
+      'images/poema6.png',
+      'images/poema7.png',
+      'images/poema8.png',
+      'images/poema9.png',
+      'images/poema10.png',
+      'images/poema11.png',
+      'images/poema12.png',
+      'images/poema13.png',
+      'images/poema14.png',
+      'images/poema15.png',
+      'images/poema16.png',
+      'images/poema17.png',
+      'images/poema18.png',
+      'images/poema19.png',
+      'images/poema20.png',
+      'images/poema21.png',
+      'images/poema22.png',
+      'images/poema23.png',
+      'images/poema24.png',
+      'images/poema25.png',
+      'images/poema26.png',
+      'images/poema27.png',
+      'images/poema28.png',
+      'images/poema29.png',
+      'images/poema30.png',
+      'images/poema31.png',
+      'images/poema32.png',
+      'images/poema33.png',
+      'images/poema34.png',
+      'images/poema35.png',
+      'images/poema36.png',
+      'images/poema37.png'
+    ];
+
+    const container = document.getElementById('bookPages');
+    const counter   = document.getElementById('bookCounter');
+    const btnPrev   = document.getElementById('btnPrev');
+    const btnNext   = document.getElementById('btnNext');
+    const total     = images.length;
+    let current     = 0;
+    const pageEls   = {};
+
+    function updateUI() {
+      counter.textContent = (current + 1) + ' / ' + total;
+      btnPrev.disabled = current === 0;
+      btnNext.disabled = current === total - 1;
+    }
+
+    function createPage(index) {
+      if (pageEls[index]) return;
+      const div = document.createElement('div');
+      div.className = 'book-page';
+      div.dataset.index = index;
+      const img = document.createElement('img');
+      img.src = images[index];
+      img.alt = '';
+      div.appendChild(img);
+      container.appendChild(div);
+      pageEls[index] = div;
+    }
+
+    function showPage(index, direction) {
+      createPage(index);
+      if (index + 1 < total) createPage(index + 1);
+      if (index - 1 >= 0) createPage(index - 1);
+
+      const prev = pageEls[current];
+      if (prev && current !== index) {
+        prev.classList.remove('active');
+        prev.classList.add('leaving');
+        setTimeout(() => { if(prev) prev.classList.remove('leaving'); }, 350);
+      }
+
+      const next = pageEls[index];
+      next.style.transform = direction === 'next'
+        ? 'translateX(6%) scale(0.97)'
+        : 'translateX(-6%) scale(0.97)';
+      next.style.opacity = '0';
+      next.style.position = 'absolute';
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          next.classList.add('active');
+        });
+      });
+
+      current = index;
+      updateUI();
+    }
+
+    // Init
+    createPage(0);
+    createPage(1);
+    pageEls[0].classList.add('active');
+    updateUI();
+
+    btnNext.addEventListener('click', () => {
+      if (current < total - 1) showPage(current + 1, 'next');
+    });
+    btnPrev.addEventListener('click', () => {
+      if (current > 0) showPage(current - 1, 'prev');
+    });
+
+    // Trackpad
+    let wheelBlocked = false;
+    container.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      if (wheelBlocked) return;
+      wheelBlocked = true;
+      if (e.deltaX > 0 && current < total - 1) showPage(current + 1, 'next');
+      if (e.deltaX < 0 && current > 0) showPage(current - 1, 'prev');
+      setTimeout(() => { wheelBlocked = false; }, 600);
+    }, { passive: false });
+
+    // Touch
+    let tx = 0, ty = 0;
+    container.addEventListener('touchstart', e => {
+      tx = e.touches[0].clientX;
+      ty = e.touches[0].clientY;
+    }, { passive: true });
+    container.addEventListener('touchend', e => {
+      const dx = tx - e.changedTouches[0].clientX;
+      const dy = ty - e.changedTouches[0].clientY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
+        if (dx > 0 && current < total - 1) showPage(current + 1, 'next');
+        if (dx < 0 && current > 0) showPage(current - 1, 'prev');
+      }
+    }, { passive: true });
+
+    // Teclado
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' && current < total - 1) showPage(current + 1, 'next');
+      if (e.key === 'ArrowLeft' && current > 0) showPage(current - 1, 'prev');
+    });
+  </script>
+
+</body>
+</html>
