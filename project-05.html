@@ -19,10 +19,8 @@
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
-      perspective: 1200px;
     }
 
-    /* Contenedor con altura dinámica */
     .book-pages {
       position: relative;
       width: 100%;
@@ -32,14 +30,12 @@
       min-height: 200px;
     }
 
-    /* Cada página ocupa todo el contenedor */
     .book-page {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       opacity: 0;
       pointer-events: none;
-      transform-origin: left center;
       transition: opacity 0.35s ease, transform 0.35s ease;
       transform: translateX(6%) scale(0.97);
     }
@@ -51,7 +47,6 @@
       transform: translateX(0) scale(1);
     }
 
-    /* Salida hacia la izquierda al pasar */
     .book-page.leaving {
       position: absolute;
       opacity: 0;
@@ -59,13 +54,12 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .book-page canvas {
+    .book-page img {
       display: block;
-      width: 100% !important;
-      height: auto !important;
+      width: 100%;
+      height: auto;
     }
 
-    /* Lomo central */
     .book-spine {
       position: absolute;
       top: 0;
@@ -81,7 +75,6 @@
       z-index: 2;
     }
 
-    /* Controles */
     .book-controls {
       display: flex;
       align-items: center;
@@ -111,17 +104,6 @@
       letter-spacing: 0.08em;
       min-width: 4rem;
       text-align: center;
-    }
-
-    .book-loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 400px;
-      font-size: 0.68rem;
-      color: var(--color-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
     }
 
     @media (max-width: 640px) {
@@ -164,8 +146,7 @@
     <div class="book-viewer">
       <div class="book-stage">
         <div class="book-pages" id="bookPages">
-          <div class="book-loading" id="bookLoading">Cargando...</div>
-          <div class="book-spine" id="bookSpine" style="display:none"></div>
+          <div class="book-spine"></div>
         </div>
       </div>
       <div class="book-controls">
@@ -179,134 +160,125 @@
 
   <footer><span>© 2025 Raúl Hilario Montes</span></footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    // Lista de imágenes en orden
+    const images = [
+      'images/poema.png',
+      'images/poema2.png',
+      'images/poema3.png',
+      'images/poema4.png',
+      'images/poema5.png',
+      'images/poema6.png',
+      'images/poema7.png',
+      'images/poema8.png',
+      'images/poema9.png',
+      'images/poema10.png',
+      'images/poema11.png',
+      'images/poema12.png',
+      'images/poema13.png',
+      'images/poema14.png',
+      'images/poema15.png',
+      'images/poema16.png',
+      'images/poema17.png',
+      'images/poema18.png',
+      'images/poema19.png',
+      'images/poema20.png',
+      'images/poema21.png',
+      'images/poema22.png',
+      'images/poema23.png',
+      'images/poema24.png',
+      'images/poema25.png',
+      'images/poema26.png',
+      'images/poema27.png',
+      'images/poema28.png',
+      'images/poema29.png',
+      'images/poema30.png',
+      'images/poema31.png',
+      'images/poema32.png',
+      'images/poema33.png',
+      'images/poema34.png',
+      'images/poema35.png',
+      'images/poema36.png',
+      'images/poema37.png'
+    ];
 
-   const PDF_URL = 'https://raw.githubusercontent.com/raulhilariomontesaguilar/raulhilariomontes/main/images/poemario.pdf';
     const container = document.getElementById('bookPages');
-    const loading   = document.getElementById('bookLoading');
-    const spine     = document.getElementById('bookSpine');
     const counter   = document.getElementById('bookCounter');
     const btnPrev   = document.getElementById('btnPrev');
     const btnNext   = document.getElementById('btnNext');
-
-    let pdfPages = [];
-    let current = 0;
-    let totalPages = 0;
-    let rendering = false;
-    const rendered = {};
-    const pageEls = {};
+    const total     = images.length;
+    let current     = 0;
+    const pageEls   = {};
 
     function updateUI() {
-      counter.textContent = (current + 1) + ' / ' + totalPages;
+      counter.textContent = (current + 1) + ' / ' + total;
       btnPrev.disabled = current === 0;
-      btnNext.disabled = current === totalPages - 1;
+      btnNext.disabled = current === total - 1;
     }
 
-    async function renderPage(index) {
-      if (rendered[index]) return;
-      rendered[index] = true;
-
-      const page = await pdfPages[index];
-      const containerWidth = container.clientWidth || 900;
-      const viewport = page.getViewport({ scale: 1 });
-      const scale = (containerWidth / viewport.width) * 2; // 2x para alta resolución
-      const scaledViewport = page.getViewport({ scale });
-
+    function createPage(index) {
+      if (pageEls[index]) return;
       const div = document.createElement('div');
       div.className = 'book-page';
       div.dataset.index = index;
-
-      const canvas = document.createElement('canvas');
-      canvas.width  = scaledViewport.width;
-      canvas.height = scaledViewport.height;
-
-      const ctx = canvas.getContext('2d');
-      await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
-
-      div.appendChild(canvas);
+      const img = document.createElement('img');
+      img.src = images[index];
+      img.alt = '';
+      div.appendChild(img);
       container.appendChild(div);
       pageEls[index] = div;
-
-      if (index === 0) {
-        div.classList.add('active');
-        loading.style.display = 'none';
-        spine.style.display = 'block';
-        updateUI();
-      }
     }
 
-    async function showPage(index, direction) {
-      if (rendering) return;
-      rendering = true;
+    function showPage(index, direction) {
+      createPage(index);
+      if (index + 1 < total) createPage(index + 1);
+      if (index - 1 >= 0) createPage(index - 1);
 
-      await renderPage(index);
-      if (index + 1 < totalPages) renderPage(index + 1);
-      if (index - 1 >= 0) renderPage(index - 1);
-
-      // Animación: página actual sale
       const prev = pageEls[current];
-      if (prev) {
+      if (prev && current !== index) {
         prev.classList.remove('active');
         prev.classList.add('leaving');
-        setTimeout(() => prev.classList.remove('leaving'), 350);
+        setTimeout(() => { if(prev) prev.classList.remove('leaving'); }, 350);
       }
 
-      // Nueva página entra
       const next = pageEls[index];
-      if (next) {
-        // Dirección de entrada
-        next.style.transform = direction === 'next'
-          ? 'translateX(6%) scale(0.97)'
-          : 'translateX(-6%) scale(0.97)';
-        next.style.opacity = '0';
-        next.style.position = 'absolute';
+      next.style.transform = direction === 'next'
+        ? 'translateX(6%) scale(0.97)'
+        : 'translateX(-6%) scale(0.97)';
+      next.style.opacity = '0';
+      next.style.position = 'absolute';
 
+      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          next.style.transition = 'none';
-          requestAnimationFrame(() => {
-            next.style.transition = '';
-            next.classList.add('active');
-          });
+          next.classList.add('active');
         });
-      }
+      });
 
       current = index;
       updateUI();
-      rendering = false;
     }
 
-    async function init() {
-      try {
-        const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
-        totalPages = pdf.numPages;
-        for (let i = 0; i < totalPages; i++) {
-          pdfPages.push(pdf.getPage(i + 1));
-        }
-        await renderPage(0);
-        if (totalPages > 1) renderPage(1);
-      } catch(e) {
-        loading.textContent = 'No se pudo cargar el PDF.';
-        console.error(e);
-      }
-    }
+    // Init
+    createPage(0);
+    createPage(1);
+    pageEls[0].classList.add('active');
+    updateUI();
 
     btnNext.addEventListener('click', () => {
-      if (current < totalPages - 1) showPage(current + 1, 'next');
+      if (current < total - 1) showPage(current + 1, 'next');
     });
     btnPrev.addEventListener('click', () => {
       if (current > 0) showPage(current - 1, 'prev');
     });
 
-    // Trackpad horizontal
+    // Trackpad
     let wheelBlocked = false;
     container.addEventListener('wheel', e => {
       if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
       e.preventDefault();
       if (wheelBlocked) return;
       wheelBlocked = true;
-      if (e.deltaX > 0 && current < totalPages - 1) showPage(current + 1, 'next');
+      if (e.deltaX > 0 && current < total - 1) showPage(current + 1, 'next');
       if (e.deltaX < 0 && current > 0) showPage(current - 1, 'prev');
       setTimeout(() => { wheelBlocked = false; }, 600);
     }, { passive: false });
@@ -321,18 +293,16 @@
       const dx = tx - e.changedTouches[0].clientX;
       const dy = ty - e.changedTouches[0].clientY;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
-        if (dx > 0 && current < totalPages - 1) showPage(current + 1, 'next');
+        if (dx > 0 && current < total - 1) showPage(current + 1, 'next');
         if (dx < 0 && current > 0) showPage(current - 1, 'prev');
       }
     }, { passive: true });
 
     // Teclado
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' && current < totalPages - 1) showPage(current + 1, 'next');
-      if (e.key === 'ArrowLeft'  && current > 0) showPage(current - 1, 'prev');
+      if (e.key === 'ArrowRight' && current < total - 1) showPage(current + 1, 'next');
+      if (e.key === 'ArrowLeft' && current > 0) showPage(current - 1, 'prev');
     });
-
-    init();
   </script>
 
 </body>
