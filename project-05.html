@@ -177,9 +177,8 @@
 
   <script>
     // Definición de vistas
-    // { type: 'single', imgs: ['...'] } o { type: 'double', imgs: ['...', '...'] }
     const views = [
-      { type: 'single', imgs: ['images/poema.png'] },          // portada
+      { type: 'double', imgs: ['images/poema37.png', 'images/poema.png'] },   // contraportada + portada
       { type: 'double', imgs: ['images/poema2.png',  'images/poema3.png'] },
       { type: 'double', imgs: ['images/poema4.png',  'images/poema5.png'] },
       { type: 'double', imgs: ['images/poema6.png',  'images/poema7.png'] },
@@ -197,7 +196,7 @@
       { type: 'double', imgs: ['images/poema30.png', 'images/poema31.png'] },
       { type: 'double', imgs: ['images/poema32.png', 'images/poema33.png'] },
       { type: 'double', imgs: ['images/poema34.png', 'images/poema35.png'] },
-      { type: 'double', imgs: ['images/poema36.png', 'images/poema37.png'] }, // contraportada puede ir aquí o sola
+      { type: 'double', imgs: ['images/poema36.png', 'images/poema37.png'] },
     ];
 
     const container = document.getElementById('bookPages');
@@ -211,7 +210,7 @@
     function updateUI() {
       counter.textContent = (current + 1) + ' / ' + total;
       btnPrev.disabled = current === 0;
-      btnNext.disabled = current === total - 1;
+      btnNext.disabled = false;
     }
 
     function createView(index) {
@@ -269,6 +268,7 @@
 
     btnNext.addEventListener('click', () => {
       if (current < total - 1) showView(current + 1, 'next');
+      else showView(0, 'next'); // vuelve al inicio
     });
     btnPrev.addEventListener('click', () => {
       if (current > 0) showView(current - 1, 'prev');
@@ -281,7 +281,7 @@
       e.preventDefault();
       if (wheelBlocked) return;
       wheelBlocked = true;
-      if (e.deltaX > 0 && current < total - 1) showView(current + 1, 'next');
+      if (e.deltaX > 0) showView(current < total - 1 ? current + 1 : 0, 'next');
       if (e.deltaX < 0 && current > 0) showView(current - 1, 'prev');
       setTimeout(() => { wheelBlocked = false; }, 600);
     }, { passive: false });
@@ -296,15 +296,15 @@
       const dx = tx - e.changedTouches[0].clientX;
       const dy = ty - e.changedTouches[0].clientY;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
-        if (dx > 0 && current < total - 1) showView(current + 1, 'next');
+        if (dx > 0) showView(current < total - 1 ? current + 1 : 0, 'next');
         if (dx < 0 && current > 0) showView(current - 1, 'prev');
       }
     }, { passive: true });
 
     // Teclado
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' && current < total - 1) showView(current + 1, 'next');
-      if (e.key === 'ArrowLeft'  && current > 0) showView(current - 1, 'prev');
+      if (e.key === 'ArrowRight') showView(current < total - 1 ? current + 1 : 0, 'next');
+      if (e.key === 'ArrowLeft' && current > 0) showView(current - 1, 'prev');
     });
   </script>
 
