@@ -15,9 +15,8 @@
     }
 
     .book-stage {
-      position: relative;
       width: 100%;
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -27,40 +26,53 @@
       background: #fff;
       box-shadow: 0 4px 40px rgba(0,0,0,0.12);
       overflow: hidden;
-      min-height: 200px;
+      min-height: 100px;
     }
 
-    .book-page {
+    /* Vista: puede ser simple o doble */
+    .book-view {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       opacity: 0 !important;
       pointer-events: none;
-      transition: opacity 0.35s ease, transform 0.35s ease;
-      transform: translateX(6%) scale(0.97);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateX(4%) scale(0.98);
+      display: flex;
     }
 
-    .book-page.active {
+    .book-view.active {
       position: relative !important;
       opacity: 1 !important;
       pointer-events: auto;
       transform: translateX(0) scale(1);
     }
 
-    .book-page.leaving {
+    .book-view.leaving {
       position: absolute !important;
       opacity: 0 !important;
-      transform: translateX(-6%) scale(0.97);
+      transform: translateX(-4%) scale(0.98);
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .book-page img {
+    /* Página simple (portada/contraportada) */
+    .book-view.single img {
       display: block;
       width: 100%;
       height: auto;
     }
 
-    .book-spine {
+    /* Pliego doble */
+    .book-view.double img {
+      display: block;
+      width: 50%;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    /* Lomo central solo en dobles */
+    .book-view.double::after {
+      content: '';
       position: absolute;
       top: 0;
       left: 50%;
@@ -68,13 +80,14 @@
       width: 3px;
       height: 100%;
       background: linear-gradient(to right,
-        rgba(0,0,0,0.06),
-        rgba(0,0,0,0.12),
-        rgba(0,0,0,0.06));
+        rgba(0,0,0,0.04),
+        rgba(0,0,0,0.10),
+        rgba(0,0,0,0.04));
       pointer-events: none;
       z-index: 2;
     }
 
+    /* Controles */
     .book-controls {
       display: flex;
       align-items: center;
@@ -107,8 +120,12 @@
     }
 
     @media (max-width: 640px) {
-      .book-stage { max-width: 100%; }
-      .book-spine { display: none; }
+      .book-view.double img {
+        width: 50%;
+      }
+      .book-view.double::after {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -145,9 +162,7 @@
 
     <div class="book-viewer">
       <div class="book-stage">
-        <div class="book-pages" id="bookPages">
-          <div class="book-spine"></div>
-        </div>
+        <div class="book-pages" id="bookPages"></div>
       </div>
       <div class="book-controls">
         <button class="book-btn" id="btnPrev">&#8592; Anterior</button>
@@ -161,54 +176,37 @@
   <footer><span>© 2025 Raúl Hilario Montes</span></footer>
 
   <script>
-    // Lista de imágenes en orden
-    const images = [
-      'images/poema.png',
-      'images/poema2.png',
-      'images/poema3.png',
-      'images/poema4.png',
-      'images/poema5.png',
-      'images/poema6.png',
-      'images/poema7.png',
-      'images/poema8.png',
-      'images/poema9.png',
-      'images/poema10.png',
-      'images/poema11.png',
-      'images/poema12.png',
-      'images/poema13.png',
-      'images/poema14.png',
-      'images/poema15.png',
-      'images/poema16.png',
-      'images/poema17.png',
-      'images/poema18.png',
-      'images/poema19.png',
-      'images/poema20.png',
-      'images/poema21.png',
-      'images/poema22.png',
-      'images/poema23.png',
-      'images/poema24.png',
-      'images/poema25.png',
-      'images/poema26.png',
-      'images/poema27.png',
-      'images/poema28.png',
-      'images/poema29.png',
-      'images/poema30.png',
-      'images/poema31.png',
-      'images/poema32.png',
-      'images/poema33.png',
-      'images/poema34.png',
-      'images/poema35.png',
-      'images/poema36.png',
-      'images/poema37.png'
+    // Definición de vistas
+    // { type: 'single', imgs: ['...'] } o { type: 'double', imgs: ['...', '...'] }
+    const views = [
+      { type: 'single', imgs: ['images/poema.png'] },          // portada
+      { type: 'double', imgs: ['images/poema2.png',  'images/poema3.png'] },
+      { type: 'double', imgs: ['images/poema4.png',  'images/poema5.png'] },
+      { type: 'double', imgs: ['images/poema6.png',  'images/poema7.png'] },
+      { type: 'double', imgs: ['images/poema8.png',  'images/poema9.png'] },
+      { type: 'double', imgs: ['images/poema10.png', 'images/poema11.png'] },
+      { type: 'double', imgs: ['images/poema12.png', 'images/poema13.png'] },
+      { type: 'double', imgs: ['images/poema14.png', 'images/poema15.png'] },
+      { type: 'double', imgs: ['images/poema16.png', 'images/poema17.png'] },
+      { type: 'double', imgs: ['images/poema18.png', 'images/poema19.png'] },
+      { type: 'double', imgs: ['images/poema20.png', 'images/poema21.png'] },
+      { type: 'double', imgs: ['images/poema22.png', 'images/poema23.png'] },
+      { type: 'double', imgs: ['images/poema24.png', 'images/poema25.png'] },
+      { type: 'double', imgs: ['images/poema26.png', 'images/poema27.png'] },
+      { type: 'double', imgs: ['images/poema28.png', 'images/poema29.png'] },
+      { type: 'double', imgs: ['images/poema30.png', 'images/poema31.png'] },
+      { type: 'double', imgs: ['images/poema32.png', 'images/poema33.png'] },
+      { type: 'double', imgs: ['images/poema34.png', 'images/poema35.png'] },
+      { type: 'double', imgs: ['images/poema36.png', 'images/poema37.png'] }, // contraportada puede ir aquí o sola
     ];
 
     const container = document.getElementById('bookPages');
     const counter   = document.getElementById('bookCounter');
     const btnPrev   = document.getElementById('btnPrev');
     const btnNext   = document.getElementById('btnNext');
-    const total     = images.length;
+    const total     = views.length;
     let current     = 0;
-    const pageEls   = {};
+    const viewEls   = {};
 
     function updateUI() {
       counter.textContent = (current + 1) + ' / ' + total;
@@ -216,35 +214,40 @@
       btnNext.disabled = current === total - 1;
     }
 
-    function createPage(index) {
-      if (pageEls[index]) return;
+    function createView(index) {
+      if (viewEls[index]) return;
+      const v = views[index];
       const div = document.createElement('div');
-      div.className = 'book-page';
+      div.className = 'book-view ' + v.type;
       div.dataset.index = index;
-      const img = document.createElement('img');
-      img.src = images[index];
-      img.alt = '';
-      div.appendChild(img);
+
+      v.imgs.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        div.appendChild(img);
+      });
+
       container.appendChild(div);
-      pageEls[index] = div;
+      viewEls[index] = div;
     }
 
-    function showPage(index, direction) {
-      createPage(index);
-      if (index + 1 < total) createPage(index + 1);
-      if (index - 1 >= 0) createPage(index - 1);
+    function showView(index, direction) {
+      createView(index);
+      if (index + 1 < total) createView(index + 1);
+      if (index - 1 >= 0) createView(index - 1);
 
-      const prev = pageEls[current];
+      const prev = viewEls[current];
       if (prev && current !== index) {
         prev.classList.remove('active');
         prev.classList.add('leaving');
-        setTimeout(() => { if(prev) prev.classList.remove('leaving'); }, 350);
+        setTimeout(() => { if (prev) prev.classList.remove('leaving'); }, 400);
       }
 
-      const next = pageEls[index];
+      const next = viewEls[index];
       next.style.transform = direction === 'next'
-        ? 'translateX(6%) scale(0.97)'
-        : 'translateX(-6%) scale(0.97)';
+        ? 'translateX(4%) scale(0.98)'
+        : 'translateX(-4%) scale(0.98)';
       next.style.opacity = '0';
       next.style.position = 'absolute';
 
@@ -259,16 +262,16 @@
     }
 
     // Init
-    createPage(0);
-    createPage(1);
-    pageEls[0].classList.add('active');
+    createView(0);
+    createView(1);
+    viewEls[0].classList.add('active');
     updateUI();
 
     btnNext.addEventListener('click', () => {
-      if (current < total - 1) showPage(current + 1, 'next');
+      if (current < total - 1) showView(current + 1, 'next');
     });
     btnPrev.addEventListener('click', () => {
-      if (current > 0) showPage(current - 1, 'prev');
+      if (current > 0) showView(current - 1, 'prev');
     });
 
     // Trackpad
@@ -278,8 +281,8 @@
       e.preventDefault();
       if (wheelBlocked) return;
       wheelBlocked = true;
-      if (e.deltaX > 0 && current < total - 1) showPage(current + 1, 'next');
-      if (e.deltaX < 0 && current > 0) showPage(current - 1, 'prev');
+      if (e.deltaX > 0 && current < total - 1) showView(current + 1, 'next');
+      if (e.deltaX < 0 && current > 0) showView(current - 1, 'prev');
       setTimeout(() => { wheelBlocked = false; }, 600);
     }, { passive: false });
 
@@ -293,15 +296,15 @@
       const dx = tx - e.changedTouches[0].clientX;
       const dy = ty - e.changedTouches[0].clientY;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
-        if (dx > 0 && current < total - 1) showPage(current + 1, 'next');
-        if (dx < 0 && current > 0) showPage(current - 1, 'prev');
+        if (dx > 0 && current < total - 1) showView(current + 1, 'next');
+        if (dx < 0 && current > 0) showView(current - 1, 'prev');
       }
     }, { passive: true });
 
     // Teclado
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' && current < total - 1) showPage(current + 1, 'next');
-      if (e.key === 'ArrowLeft' && current > 0) showPage(current - 1, 'prev');
+      if (e.key === 'ArrowRight' && current < total - 1) showView(current + 1, 'next');
+      if (e.key === 'ArrowLeft'  && current > 0) showView(current - 1, 'prev');
     });
   </script>
 
