@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cómo escribí este poemario y dónde está Cumpiáns</title>
+  <title>Cómo escribí este poema y dónde está Cumpián — Raúl Hilario Montes</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Visor de libro ── */
     .book-viewer {
       display: flex;
       flex-direction: column;
@@ -18,31 +17,46 @@
     .book-stage {
       position: relative;
       width: 100%;
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
+      perspective: 1200px;
     }
 
+    /* Contenedor con altura dinámica */
     .book-pages {
       position: relative;
       width: 100%;
       background: #fff;
-      box-shadow: 0 2px 40px rgba(0,0,0,0.10);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
       overflow: hidden;
+      min-height: 200px;
     }
 
+    /* Cada página ocupa todo el contenedor */
     .book-page {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       opacity: 0;
-      transition: opacity 0.5s ease;
       pointer-events: none;
+      transform-origin: left center;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateX(6%) scale(0.97);
     }
 
     .book-page.active {
       position: relative;
       opacity: 1;
       pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    /* Salida hacia la izquierda al pasar */
+    .book-page.leaving {
+      position: absolute;
+      opacity: 0;
+      transform: translateX(-6%) scale(0.97);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .book-page canvas {
@@ -51,15 +65,18 @@
       height: auto !important;
     }
 
-    /* Sombra central simulando el lomo del libro */
+    /* Lomo central */
     .book-spine {
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 2px;
+      width: 3px;
       height: 100%;
-      background: linear-gradient(to right, rgba(0,0,0,0.08), rgba(0,0,0,0.03), rgba(0,0,0,0.08));
+      background: linear-gradient(to right,
+        rgba(0,0,0,0.06),
+        rgba(0,0,0,0.12),
+        rgba(0,0,0,0.06));
       pointer-events: none;
       z-index: 2;
     }
@@ -69,14 +86,14 @@
       display: flex;
       align-items: center;
       gap: 2rem;
-      margin-top: 1.2rem;
+      margin-top: 1rem;
     }
 
     .book-btn {
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.72rem;
       color: var(--color-muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -89,33 +106,27 @@
     .book-btn:disabled { opacity: 0.2; cursor: default; }
 
     .book-counter {
-      font-size: var(--meta-size);
+      font-size: 0.68rem;
       color: var(--color-muted);
       letter-spacing: 0.08em;
-      min-width: 5rem;
+      min-width: 4rem;
       text-align: center;
     }
 
-    /* Loading */
     .book-loading {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 400px;
-      font-size: var(--meta-size);
+      font-size: 0.68rem;
       color: var(--color-muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
-    /* Móvil */
     @media (max-width: 640px) {
-      .book-stage {
-        max-width: 100%;
-      }
-      .book-spine {
-        display: none;
-      }
+      .book-stage { max-width: 100%; }
+      .book-spine { display: none; }
     }
   </style>
 </head>
@@ -136,11 +147,11 @@
 
     <article class="project-single">
       <div class="project-header">
-        <h1>Cómo escribí este poemario y dónde está Cumpián</h1>
+        <h1>Cómo escribí este poema y dónde está Cumpián</h1>
       </div>
     </article>
 
-    <div class="project-body" style="margin-bottom: 2rem;">
+    <div class="project-body" style="margin-bottom: 1.5rem;">
       <div class="project-info">
         <span class="project-context">Pamfletografía de lo caduco, Málaga</span>
         <span class="year">2021</span>
@@ -150,7 +161,6 @@
       </div>
     </div>
 
-    <!-- Visor de libro -->
     <div class="book-viewer">
       <div class="book-stage">
         <div class="book-pages" id="bookPages">
@@ -158,7 +168,6 @@
           <div class="book-spine" id="bookSpine" style="display:none"></div>
         </div>
       </div>
-
       <div class="book-controls">
         <button class="book-btn" id="btnPrev">&#8592; Anterior</button>
         <span class="book-counter" id="bookCounter"></span>
@@ -168,16 +177,13 @@
 
   </main>
 
-  <footer>
-    <span>© 2025 Raúl Hilario Montes</span>
-  </footer>
+  <footer><span>© 2025 Raúl Hilario Montes</span></footer>
 
-  <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    const PDF_URL = 'images/poemario.pdf';
+    const PDF_URL = './images/poemario.pdf';
     const container = document.getElementById('bookPages');
     const loading   = document.getElementById('bookLoading');
     const spine     = document.getElementById('bookSpine');
@@ -185,11 +191,12 @@
     const btnPrev   = document.getElementById('btnPrev');
     const btnNext   = document.getElementById('btnNext');
 
-    let pages = [];
+    let pdfPages = [];
     let current = 0;
     let totalPages = 0;
     let rendering = false;
     const rendered = {};
+    const pageEls = {};
 
     function updateUI() {
       counter.textContent = (current + 1) + ' / ' + totalPages;
@@ -201,23 +208,26 @@
       if (rendered[index]) return;
       rendered[index] = true;
 
-      const page = await pages[index];
-      const scale = 2; // alta resolución
-      const viewport = page.getViewport({ scale });
+      const page = await pdfPages[index];
+      const containerWidth = container.clientWidth || 900;
+      const viewport = page.getViewport({ scale: 1 });
+      const scale = (containerWidth / viewport.width) * 2; // 2x para alta resolución
+      const scaledViewport = page.getViewport({ scale });
 
       const div = document.createElement('div');
       div.className = 'book-page';
       div.dataset.index = index;
 
       const canvas = document.createElement('canvas');
-      canvas.width  = viewport.width;
-      canvas.height = viewport.height;
+      canvas.width  = scaledViewport.width;
+      canvas.height = scaledViewport.height;
 
       const ctx = canvas.getContext('2d');
-      await page.render({ canvasContext: ctx, viewport }).promise;
+      await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
 
       div.appendChild(canvas);
       container.appendChild(div);
+      pageEls[index] = div;
 
       if (index === 0) {
         div.classList.add('active');
@@ -227,19 +237,40 @@
       }
     }
 
-    async function showPage(index) {
+    async function showPage(index, direction) {
       if (rendering) return;
       rendering = true;
 
-      // Renderiza la página pedida y la siguiente (precarga)
       await renderPage(index);
       if (index + 1 < totalPages) renderPage(index + 1);
+      if (index - 1 >= 0) renderPage(index - 1);
 
-      // Transición
-      const allPages = container.querySelectorAll('.book-page');
-      allPages.forEach(p => p.classList.remove('active'));
-      const target = container.querySelector(`[data-index="${index}"]`);
-      if (target) target.classList.add('active');
+      // Animación: página actual sale
+      const prev = pageEls[current];
+      if (prev) {
+        prev.classList.remove('active');
+        prev.classList.add('leaving');
+        setTimeout(() => prev.classList.remove('leaving'), 350);
+      }
+
+      // Nueva página entra
+      const next = pageEls[index];
+      if (next) {
+        // Dirección de entrada
+        next.style.transform = direction === 'next'
+          ? 'translateX(6%) scale(0.97)'
+          : 'translateX(-6%) scale(0.97)';
+        next.style.opacity = '0';
+        next.style.position = 'absolute';
+
+        requestAnimationFrame(() => {
+          next.style.transition = 'none';
+          requestAnimationFrame(() => {
+            next.style.transition = '';
+            next.classList.add('active');
+          });
+        });
+      }
 
       current = index;
       updateUI();
@@ -250,40 +281,37 @@
       try {
         const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
         totalPages = pdf.numPages;
-
-        // Guarda promesas de páginas
         for (let i = 0; i < totalPages; i++) {
-          pages.push(pdf.getPage(i + 1));
+          pdfPages.push(pdf.getPage(i + 1));
         }
-
-        await showPage(0);
+        await renderPage(0);
+        if (totalPages > 1) renderPage(1);
       } catch(e) {
-        loading.textContent = 'No se ha podido cargar el PDF.';
+        loading.textContent = 'No se pudo cargar el PDF.';
         console.error(e);
       }
     }
 
     btnNext.addEventListener('click', () => {
-      if (current < totalPages - 1) showPage(current + 1);
+      if (current < totalPages - 1) showPage(current + 1, 'next');
     });
-
     btnPrev.addEventListener('click', () => {
-      if (current > 0) showPage(current - 1);
+      if (current > 0) showPage(current - 1, 'prev');
     });
 
-    // Trackpad
+    // Trackpad horizontal
     let wheelBlocked = false;
     container.addEventListener('wheel', e => {
       if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
       e.preventDefault();
       if (wheelBlocked) return;
       wheelBlocked = true;
-      if (e.deltaX > 0 && current < totalPages - 1) showPage(current + 1);
-      if (e.deltaX < 0 && current > 0) showPage(current - 1);
+      if (e.deltaX > 0 && current < totalPages - 1) showPage(current + 1, 'next');
+      if (e.deltaX < 0 && current > 0) showPage(current - 1, 'prev');
       setTimeout(() => { wheelBlocked = false; }, 600);
     }, { passive: false });
 
-    // Touch móvil
+    // Touch
     let tx = 0, ty = 0;
     container.addEventListener('touchstart', e => {
       tx = e.touches[0].clientX;
@@ -293,15 +321,15 @@
       const dx = tx - e.changedTouches[0].clientX;
       const dy = ty - e.changedTouches[0].clientY;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
-        if (dx > 0 && current < totalPages - 1) showPage(current + 1);
-        if (dx < 0 && current > 0) showPage(current - 1);
+        if (dx > 0 && current < totalPages - 1) showPage(current + 1, 'next');
+        if (dx < 0 && current > 0) showPage(current - 1, 'prev');
       }
     }, { passive: true });
 
     // Teclado
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' && current < totalPages - 1) showPage(current + 1);
-      if (e.key === 'ArrowLeft'  && current > 0) showPage(current - 1);
+      if (e.key === 'ArrowRight' && current < totalPages - 1) showPage(current + 1, 'next');
+      if (e.key === 'ArrowLeft'  && current > 0) showPage(current - 1, 'prev');
     });
 
     init();
