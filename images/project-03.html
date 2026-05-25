@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título Proyecto — Raúl Hilario Montes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-name">Raúl Hilario Montes</a>
+    <nav>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="texts.html">Texts</a>
+      <a href="cv.html">CV</a>
+      <a href="info.html">Info</a>
+    </nav>
+  </header>
+
+  <main>
+    <a href="projects.html" class="back-link">← Projects</a>
+
+    <article class="project-single">
+      <div class="project-header">
+        <h1>Arena de Internet</h1>
+      </div>
+    </article>
+
+    <div class="project-body">
+      <div class="project-info">
+        <span class="project-context">El postalero. Espacio Lavadero. Granada</span>
+        <span class="project-context">Curated byDaniel Medina y Carla Marín </span>
+        <span class="year">2021</span>
+        <div class="project-text">
+          <p>Módulo de sensor lumínico, altavoz y arena de internet envasados al vacío + sobre estampado y sello</p>
+        </div>
+      </div>
+
+      <!-- Añade un <div class="pslide"> por cada imagen -->
+      <div class="project-slideshow">
+        <div class="pslide active">
+          <img src="images/posta.png" alt="">
+        </div>
+        <div class="pslide">
+          <img src="images/posta2.png" alt="">
+        </div>
+        <div class="pslide">
+          <img src="images/posta1.png" alt="">
+        </div>
+        <div class="pslide">
+          <img src="images/posta3.png" alt="">
+        </div>
+        <div class="pslide">
+          <img src="images/posta4.png" alt="">
+        </div>
+        <div class="pslide">
+          <img src="images/posta5.png" alt="">
+        </div>
+        <div class="pslide">
+          <img src="images/posta0.png" alt="">
+        </div>
+
+        <button class="pslide-prev" aria-label="Anterior">&#8592;</button>
+        <button class="pslide-next" aria-label="Siguiente">&#8594;</button>
+        <div class="pslide-counter">
+          <span class="pslide-current">1</span> / <span class="pslide-total"></span>
+        </div>
+      </div>
+    </div><!-- /project-body -->
+
+  </main>
+
+  <footer>
+    <span>© 2025 Raúl Hilario Montes</span>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.project-slideshow').forEach(function(ss) {
+      const slides = Array.from(ss.querySelectorAll('.pslide'));
+      const total = slides.length;
+      let current = 0;
+      let blocked = false;
+      const counterCurrent = ss.querySelector('.pslide-current');
+      const counterTotal   = ss.querySelector('.pslide-total');
+      if (counterTotal) counterTotal.textContent = total;
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        current = (n + total) % total;
+        slides[current].classList.add('active');
+        if (counterCurrent) counterCurrent.textContent = current + 1;
+      }
+      ss.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
+      ss.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
+      setInterval(() => goTo(current + 1), 6000);
+      ss.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+        e.preventDefault();
+        if (blocked) return;
+        blocked = true;
+        goTo(e.deltaX > 0 ? current + 1 : current - 1);
+        setTimeout(() => { blocked = false; }, 700);
+      }, { passive: false });
+      let touchStartX = 0, touchStartY = 0;
+      ss.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, {passive: true});
+      ss.addEventListener('touchend', e => {
+        const diffX = touchStartX - e.changedTouches[0].clientX;
+        const diffY = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+          goTo(diffX > 0 ? current + 1 : current - 1);
+        }
+      }, {passive: true});
+    });
+  </script>
+
+</body>
+</html>
