@@ -307,9 +307,14 @@ main {
 }
 
 .pslide-video {
-  position: relative;
+  position: relative !important;
   padding-bottom: 56.25%;
-  height: 0;
+  height: 0 !important;
+  overflow: hidden;
+}
+
+.pslide-video.active {
+  display: block !important;
 }
 
 .pslide-video iframe {

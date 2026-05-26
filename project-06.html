@@ -133,15 +133,26 @@
       const counterCurrent = ss.querySelector('.pslide-current');
       const counterTotal   = ss.querySelector('.pslide-total');
       if (counterTotal) counterTotal.textContent = total;
+
+      function isVideo(index) {
+        return slides[index].classList.contains('pslide-video');
+      }
+
       function goTo(n) {
         slides[current].classList.remove('active');
         current = (n + total) % total;
         slides[current].classList.add('active');
         if (counterCurrent) counterCurrent.textContent = current + 1;
       }
+
       ss.querySelector('.pslide-next').addEventListener('click', () => goTo(current + 1));
       ss.querySelector('.pslide-prev').addEventListener('click', () => goTo(current - 1));
-      setInterval(() => goTo(current + 1), 6000);
+
+      // Autoplay que se para en el vídeo
+      const interval = setInterval(() => {
+        if (!isVideo(current)) goTo(current + 1);
+      }, 6000);
+
       ss.addEventListener('wheel', e => {
         if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
         e.preventDefault();
@@ -150,6 +161,7 @@
         goTo(e.deltaX > 0 ? current + 1 : current - 1);
         setTimeout(() => { blocked = false; }, 700);
       }, { passive: false });
+
       let touchStartX = 0, touchStartY = 0;
       ss.addEventListener('touchstart', e => {
         touchStartX = e.touches[0].clientX;
