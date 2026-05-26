@@ -301,6 +301,24 @@ main {
 .project-body-third {
   margin-top: 3rem;
 }
+
+.project-body-fourth {
+  margin-top: 3rem;
+}
+
+.pslide-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.pslide-video iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 .texts-list {
   max-width: 640px;
 }
