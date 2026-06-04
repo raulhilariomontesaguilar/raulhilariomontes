@@ -403,7 +403,7 @@ main {
 
 .cv-content {
   flex: 1;
-  max-width: 580px;
+  max-width: 100%;
 }
 
 .cv-name-block {
@@ -436,15 +436,16 @@ main {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
   text-decoration: none;
 }
 
 .cv-line {
   font-size: 0.95rem;
-  line-height: 1.9;
+  line-height: 2.2;
   color: var(--color-text);
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 @media (max-width: 640px) {
