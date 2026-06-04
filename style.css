@@ -394,6 +394,11 @@ main {
   line-height: 2;
 }
 
+.cv-label-bold {
+  font-weight: 400;
+  color: var(--color-text);
+}
+
 .cv-label-sub {
   font-size: var(--meta-size);
   color: var(--color-muted);
