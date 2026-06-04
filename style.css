@@ -4,7 +4,7 @@
    Fallback: 'Gill Sans', Futura, sans-serif
 ───────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Cormorant+Garamond:wght@300;400&display=swap');
 
 /* Josefin Sans es una alternativa gratuita muy cercana a Museo Sans.
    Si tienes licencia Adobe Fonts, sustituye por:
@@ -60,10 +60,11 @@ header {
 }
 
 .site-name {
-  font-size: var(--nav-size);
-  letter-spacing: 0.12em;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 nav {
