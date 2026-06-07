@@ -317,12 +317,12 @@ main {
 
 /* ── Texts index ── */
 .texts-index {
-  max-width: 860px;
+  max-width: 100%;
 }
 
 .text-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: baseline;
   padding: 0.45rem 0;
   transition: opacity 0.15s;
@@ -338,7 +338,7 @@ main {
   display: flex;
   align-items: baseline;
   gap: 0;
-  flex-shrink: 1;
+  min-width: 0;
 }
 
 .text-row-title {
@@ -352,12 +352,14 @@ main {
 .text-row-sep {
   font-size: var(--body-size);
   color: var(--color-muted);
+  flex-shrink: 0;
 }
 
 .text-row-author {
   font-size: var(--body-size);
   color: var(--color-text);
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .text-row-right {
