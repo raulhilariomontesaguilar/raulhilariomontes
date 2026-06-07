@@ -321,13 +321,12 @@ main {
 }
 
 .text-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: baseline;
   padding: 0.45rem 0;
   transition: opacity 0.15s;
   text-decoration: none;
-  gap: 2rem;
+  gap: 0;
 }
 
 .text-row:hover {
@@ -337,8 +336,9 @@ main {
 .text-row-left {
   display: flex;
   align-items: baseline;
-  gap: 0;
+  flex: 1;
   min-width: 0;
+  padding-right: 2rem;
 }
 
 .text-row-title {
@@ -365,7 +365,6 @@ main {
 .text-row-right {
   display: flex;
   align-items: baseline;
-  gap: 0;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -374,6 +373,7 @@ main {
   font-size: var(--meta-size);
   color: var(--color-muted);
   letter-spacing: 0.04em;
+  min-width: 3rem;
 }
 
 .text-row-expo {
