@@ -30,3 +30,68 @@
   letter-spacing: 0.04em;
   margin-top: 0.1rem;
 }
+
+/* ── Texts index (actualizado) ── */
+.texts-index {
+  max-width: 860px;
+}
+
+.text-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.45rem 0;
+  transition: opacity 0.15s;
+  text-decoration: none;
+  gap: 2rem;
+}
+
+.text-row:hover {
+  opacity: 0.5;
+}
+
+.text-row-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  flex-shrink: 1;
+}
+
+.text-row-title {
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.text-row-sep {
+  font-size: var(--body-size);
+  color: var(--color-muted);
+}
+
+.text-row-author {
+  font-size: var(--body-size);
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.text-row-right {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.text-row-year {
+  font-size: var(--meta-size);
+  color: var(--color-muted);
+  letter-spacing: 0.04em;
+}
+
+.text-row-expo {
+  font-size: var(--meta-size);
+  color: var(--color-muted);
+  letter-spacing: 0.04em;
+}
