@@ -19,42 +19,38 @@
   </header>
 
   <main>
-    <p class="page-title">Texts</p>
+    <div class="texts-index" id="textsIndex">
 
-    <div class="texts-list">
+      <!-- ═══════════════════════════════════════════════════
+           PLANTILLA PARA AÑADIR TEXTOS
+           Copia este bloque y rellena los datos.
+           El orden se actualiza solo por año (más reciente arriba).
 
-      <!-- Copia este bloque <div class="text-item"> para añadir textos -->
+           data-year   → año del texto (para ordenar)
+           href        → pon la URL del PDF o el nombre del archivo HTML interno
+           target      → pon target="_blank" si es PDF o enlace externo, elimínalo si es página interna
 
-      <div class="text-item">
-        <h2>Título del texto o ensayo</h2>
-        <p class="text-meta">Publicación o contexto — 2024</p>
-        <p>
-          Extracto breve o descripción del texto. Puede ser una primera línea, 
-          una frase introductoria o una síntesis de su contenido. 
-          Mantén la brevedad.
-        </p>
-        <a href="#" class="read-link">Leer →</a>
-      </div>
+           Estructura:
+           <a class="text-row" href="..." data-year="XXXX">
+             <span class="text-row-main">Título del texto. Autor del texto</span>
+             <span class="text-row-meta">Nombre del proyecto / exposición — XXXX</span>
+           </a>
+      ═══════════════════════════════════════════════════ -->
 
-      <div class="text-item">
-        <h2>Otro texto, otra escritura</h2>
-        <p class="text-meta">Catálogo de exposición — 2023</p>
-        <p>
-          Texto de catálogo para la exposición en tal lugar. 
-          Escrito con motivo de tal evento.
-        </p>
-        <a href="#" class="read-link">Leer →</a>
-      </div>
+      <a class="text-row" href="texts/texto-ejemplo.html" data-year="2024">
+        <span class="text-row-main">Título del texto. Autor del texto</span>
+        <span class="text-row-meta">Nombre del proyecto — 2024</span>
+      </a>
 
-      <div class="text-item">
-        <h2>Notas sobre el proceso</h2>
-        <p class="text-meta">Texto propio — 2022</p>
-        <p>
-          Notas de trabajo, reflexiones sobre el método o el material. 
-          Sin publicar.
-        </p>
-        <!-- Si no hay enlace, elimina esta línea -->
-      </div>
+      <a class="text-row" href="texts/otro-texto.pdf" target="_blank" data-year="2022">
+        <span class="text-row-main">Otro texto. Otro autor</span>
+        <span class="text-row-meta">Nombre del proyecto — 2022</span>
+      </a>
+
+      <a class="text-row" href="texts/texto-antiguo.html" data-year="2021">
+        <span class="text-row-main">Texto más antiguo. Autor</span>
+        <span class="text-row-meta">Nombre del proyecto — 2021</span>
+      </a>
 
     </div>
   </main>
@@ -62,6 +58,14 @@
   <footer>
     <span>© 2025 Raúl Hilario Montes</span>
   </footer>
+
+  <script>
+    // Ordena automáticamente por año, más reciente arriba
+    const index = document.getElementById('textsIndex');
+    const rows = Array.from(index.querySelectorAll('.text-row'));
+    rows.sort((a, b) => parseInt(b.dataset.year) - parseInt(a.dataset.year));
+    rows.forEach(r => index.appendChild(r));
+  </script>
 
 </body>
 </html>
