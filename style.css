@@ -493,7 +493,7 @@ main {
 }
 
 .info-contact-block {
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 .info-line {
@@ -507,31 +507,32 @@ main {
   display: block;
   font-size: var(--body-size);
   line-height: 2;
-  color: var(--color-text);
+  color: #0057d8;
   letter-spacing: 0.04em;
   text-decoration: none;
   transition: opacity 0.15s;
 }
 
 .info-link:hover {
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .info-statement-title {
-  font-size: var(--meta-size);
-  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-muted);
-  margin-bottom: 1rem;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
 }
 
 .info-statement-text {
-  font-size: var(--body-size);
+  font-size: 0.95rem;
   line-height: 1.9;
   color: var(--color-text);
   letter-spacing: 0.02em;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
   text-align: left;
+  max-width: 480px;
 }
 
 @media (max-width: 640px) {
@@ -546,6 +547,9 @@ main {
   .info-content {
     max-width: 100%;
     padding-top: 0;
+  }
+  .info-statement-text {
+    max-width: 100%;
   }
 }
 
