@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../style.css">
   <style>
     .text-body {
-      max-width: 680px;
+      max-width: 100%;
       padding-top: 1.2rem;
     }
     .text-header {
@@ -20,13 +20,7 @@
       text-transform: uppercase;
       margin-bottom: 0.3rem;
     }
-    .text-header .text-author {
-      font-size: var(--meta-size);
-      color: var(--color-muted);
-      letter-spacing: 0.06em;
-      line-height: 2;
-      display: block;
-    }
+    .text-header .text-author,
     .text-header .text-meta {
       font-size: var(--meta-size);
       color: var(--color-muted);
@@ -35,60 +29,60 @@
       display: block;
     }
 
-    /* Bloque intro */
     .workshop-intro {
+      max-width: 680px;
+      margin-bottom: 3rem;
+    }
+    .workshop-intro p {
       font-size: 0.95rem;
       line-height: 1.9;
       color: var(--color-text);
       letter-spacing: 0.02em;
       text-align: justify;
-      margin-bottom: 3rem;
-    }
-
-    .workshop-intro p {
       margin-bottom: 1.5rem;
     }
 
-    /* Título ACTIVATION */
     .workshop-activation-title {
       font-size: 0.82rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--color-text);
-      margin-bottom: 1.5rem;
-    }
-
-    /* Grid de letras */
-    .workshop-letters {
-      display: grid;
-      grid-template-columns: repeat(3, 1.5rem);
-      gap: 0.3rem 1.5rem;
       margin-bottom: 2rem;
-      font-size: 0.95rem;
-      letter-spacing: 0.06em;
-      color: var(--color-text);
     }
 
-    /* Dos columnas de ejercicios */
+    /* Grid de ejercicios: letra | título+descripción */
     .workshop-exercises {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem 3rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 4rem;
     }
 
-    .workshop-exercise h3 {
+    .workshop-exercise {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .workshop-exercise-letter {
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text);
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+
+    .workshop-exercise-content h3 {
       font-size: 0.82rem;
       font-weight: 400;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--color-text);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
 
-    .workshop-exercise p {
+    .workshop-exercise-content p {
       font-size: var(--body-size);
-      line-height: 1.8;
+      line-height: 1.75;
       color: var(--color-text);
       letter-spacing: 0.02em;
     }
@@ -133,57 +127,78 @@
 
       <p class="workshop-activation-title">Activation of the piece:</p>
 
-      <div class="workshop-letters">
-        <span>A/</span><span>I/</span><span>O/</span>
-        <span>D/</span><span>L/</span><span>R/</span>
-        <span>E/</span><span>N/</span><span>S/</span>
-      </div>
-
       <div class="workshop-exercises">
 
         <div class="workshop-exercise">
-          <h3>Logo-rallye / Infiltrated phrase</h3>
-          <p>Include a proverb / saying / common phrase</p>
+          <span class="workshop-exercise-letter">A/</span>
+          <div class="workshop-exercise-content">
+            <h3>Logo-rallye / Infiltrated phrase</h3>
+            <p>Include a proverb / saying / common phrase</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Evocation</h3>
-          <p>Describe a space or object in detail without looking at it.</p>
+          <span class="workshop-exercise-letter">I/</span>
+          <div class="workshop-exercise-content">
+            <h3>Evocation</h3>
+            <p>Describe a space or object in detail without looking at it.</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Epigenetic activation</h3>
-          <p>List or introduce, repeatedly, words that resonate with you (from home, friends, frequent ones, favourites…).</p>
+          <span class="workshop-exercise-letter">O/</span>
+          <div class="workshop-exercise-content">
+            <h3>Epigenetic activation</h3>
+            <p>List or introduce, repeatedly, words that resonate with you (from home, friends, frequent ones, favourites…).</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Letter to a stranger</h3>
-          <p>Write to a reader as if you already knew each other.</p>
+          <span class="workshop-exercise-letter">D/</span>
+          <div class="workshop-exercise-content">
+            <h3>Letter to a stranger</h3>
+            <p>Write to a reader as if you already knew each other.</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Ghost</h3>
-          <p>Write about things that are not accessible to the eye at first glance.</p>
+          <span class="workshop-exercise-letter">L/</span>
+          <div class="workshop-exercise-content">
+            <h3>Ghost</h3>
+            <p>Write about things that are not accessible to the eye at first glance.</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Reinterpretation</h3>
-          <p>Rewrite a poem by another author.</p>
+          <span class="workshop-exercise-letter">R/</span>
+          <div class="workshop-exercise-content">
+            <h3>Reinterpretation</h3>
+            <p>Rewrite a poem by another author.</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Mapping</h3>
-          <p>Make a list by precisely enumerating places you usually pass through.</p>
+          <span class="workshop-exercise-letter">E/</span>
+          <div class="workshop-exercise-content">
+            <h3>Mapping</h3>
+            <p>Make a list by precisely enumerating places you usually pass through.</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Ruis</h3>
-          <p>Position yourself in front of a work in the space and write or draw the sound it transmits, or imagine its tone if it could speak.</p>
+          <span class="workshop-exercise-letter">N/</span>
+          <div class="workshop-exercise-content">
+            <h3>Ruis</h3>
+            <p>Position yourself in front of a work in the space and write or draw the sound it transmits, or imagine its tone if it could speak.</p>
+          </div>
         </div>
 
         <div class="workshop-exercise">
-          <h3>Time machine</h3>
-          <p>Pass the text through a time machine.</p>
+          <span class="workshop-exercise-letter">S/</span>
+          <div class="workshop-exercise-content">
+            <h3>Time machine</h3>
+            <p>Pass the text through a time machine.</p>
+          </div>
         </div>
 
       </div>
