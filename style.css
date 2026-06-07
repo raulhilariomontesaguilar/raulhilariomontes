@@ -317,16 +317,14 @@ main {
 
 /* ── Texts index ── */
 .texts-index {
-  max-width: 100%;
+  max-width: 640px;
 }
 
 .text-row {
-  display: flex;
-  align-items: baseline;
-  padding: 0.45rem 0;
+  display: block;
+  padding: 0.8rem 0;
   transition: opacity 0.15s;
   text-decoration: none;
-  gap: 0;
 }
 
 .text-row:hover {
@@ -336,9 +334,9 @@ main {
 .text-row-left {
   display: flex;
   align-items: baseline;
-  flex: 1;
-  min-width: 0;
-  padding-right: 2rem;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-bottom: 0.15rem;
 }
 
 .text-row-title {
@@ -346,34 +344,29 @@ main {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-text);
-  white-space: nowrap;
 }
 
 .text-row-sep {
   font-size: var(--body-size);
   color: var(--color-muted);
-  flex-shrink: 0;
 }
 
 .text-row-author {
   font-size: var(--body-size);
   color: var(--color-text);
   letter-spacing: 0.02em;
-  white-space: nowrap;
 }
 
 .text-row-right {
   display: flex;
   align-items: baseline;
-  flex-shrink: 0;
-  white-space: nowrap;
+  gap: 0;
 }
 
 .text-row-year {
   font-size: var(--meta-size);
   color: var(--color-muted);
   letter-spacing: 0.04em;
-  min-width: 3rem;
 }
 
 .text-row-expo {
