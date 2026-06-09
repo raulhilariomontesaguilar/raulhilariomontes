@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendulaciones Hermenéuticas — Raúl Hilario Montes</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ── Contenedor general de textos ── */
+    .text-page-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .text-page-left {
+      flex-shrink: 0;
+      width: 13rem;
+      padding-top: 1.2rem;
+    }
+
+    .text-page-meta {
+      font-size: var(--meta-size);
+      color: var(--color-muted);
+      letter-spacing: 0.08em;
+      line-height: 2;
+      display: block;
+    }
+
+    .text-page-meta-note {
+      font-size: var(--meta-size);
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      display: block;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .text-page-content {
+      flex: 1;
+      max-width: 600px;
+      padding-top: 1.2rem;
+    }
+
+    /* ── Cada texto ── */
+    .texto {
+      margin-bottom: 5rem;
+    }
+
+    .texto-titulo {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: 1.8rem;
+    }
+
+    /* Prosa normal */
+    .texto-prosa {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      text-align: justify;
+    }
+
+    .texto-prosa p {
+      margin-bottom: 1.2rem;
+    }
+
+    /* Fecha / nota al pie */
+    .texto-fecha {
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      margin-top: 1.6rem;
+      display: block;
+    }
+
+    /* Poema / verso */
+    .texto-verso {
+      font-size: 0.88rem;
+      line-height: 2.2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      white-space: pre-wrap;
+    }
+
+    /* Texto especialmente espaciado (CURSILADA CONCEPTUAL) */
+    .texto-espaciado {
+      font-size: 0.88rem;
+      line-height: 2.6;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+
+    .texto-espaciado .indent-1 { padding-left: 3rem; }
+    .texto-espaciado .indent-2 { padding-left: 6rem; }
+    .texto-espaciado .indent-3 { padding-left: 10rem; }
+    .texto-espaciado .spread { letter-spacing: 0.4em; }
+    .texto-espaciado .pregunta { margin-top: 1.6rem; }
+
+    /* Diálogo */
+    .texto-dialogo {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+    .texto-dialogo p {
+      margin-bottom: 0.4rem;
+    }
+    .texto-dialogo .parentesis {
+      color: var(--color-muted);
+      font-size: 0.82rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Cita en bloque */
+    .texto-cita {
+      font-size: 0.82rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      border-left: 1px solid var(--color-muted);
+      padding-left: 1.2rem;
+      margin: 1.4rem 0;
+    }
+
+    /* Instrucción / acotación */
+    .texto-instruccion {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-top: 2rem;
+      display: block;
+    }
+
+    /* Record Guiness — tipografía expresiva */
+    .texto-record .linea-expresiva {
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+      line-height: 2.2;
+      color: var(--color-text);
+    }
+    .texto-record .linea-tipografica {
+      font-size: 1.1rem;
+      letter-spacing: 0.22em;
+      line-height: 2.6;
+      color: var(--color-text);
+    }
+    .texto-record .linea-simbolo {
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+    }
+
+    /* Separador entre textos */
+    .texto-sep {
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--color-border);
+      margin: 4rem 0;
+    }
+
+    /* Subtítulo del texto que?, como?... */
+    .preguntas-lista {
+      font-size: 0.88rem;
+      line-height: 2.4;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 640px) {
+      .text-page-layout {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .text-page-left {
+        width: 100%;
+        padding-top: 0;
+      }
+      .text-page-content {
+        max-width: 100%;
+        padding-top: 0;
+      }
+      .texto-espaciado .indent-1 { padding-left: 1.5rem; }
+      .texto-espaciado .indent-2 { padding-left: 3rem; }
+      .texto-espaciado .indent-3 { padding-left: 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../index.html" class="site-name">Raúl Hilario Montes</a>
+    <nav>
+      <a href="../projects.html">Projects</a>
+      <a href="../texts.html" class="active">Texts</a>
+      <a href="../cv.html">CV</a>
+      <a href="../info.html">Info</a>
+    </nav>
+  </header>
+
+  <main>
+    <a href="../texts.html" class="back-link">← Texts</a>
+
+    <article class="project-single">
+      <div class="project-header">
+        <h1>Pendulaciones Hermenéuticas</h1>
+      </div>
+    </article>
+
+    <div class="text-page-layout">
+
+      <div class="text-page-left">
+        <span class="text-page-meta">Raúl Hilario Montes</span>
+        <span class="text-page-meta">2025</span>
+        <span class="text-page-meta-note">Textos escritos durante el proceso creativo</span>
+      </div>
+
+      <div class="text-page-content">
+
+        <!-- ══════════════════════════════════
+             1. PA MI AJUAR
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Pa mi ajuar</p>
+          <div class="texto-prosa">
+            <p>Desde que vivo fuera de casa, todo objeto que compro para la vivienda de alquilé, digo que es "pa mi ajuar": Una olla honda pal puchero, una sábana bajera, un plato hondo y otro llano…</p>
+            <p>No sé si podría hacer una metáfora diciendo que estos enseres son las gominolas del adulto pero que satisfacen la necesidad en vez del deseo inocente de la infancia. No, no la voy a hacer porque realmente si que nos sube esa dopamina que da el chute de azúcar y del consumismo. Me explico: cuando obtenemos estos artículos para la casa - que nos hacen sentir adultos por gastarnos nuestros sueldos literalmente en "cosas de adultos" en lugar de diversión - cubrimos nuestras "necesidades" para vivir diariamente. Pero por otro lado, satisfacen momentáneamente nuestro "deseo" por tener un inmueble propio (desgraciadamente, utopía) simulando que estos artículos para la casa alquilada (elegir el color de las toallas, la distribución del cuarto, "necesitar" de repente un rallador para el tomate) nos proporcionan arraigo o independencia, caramelo que calma la ansiedad de no poder echar raíces. Aunque hay gente que se lo toma en serio, cambian toda la decoración y se montan todo un set site-specific, una escenografía efímera sin falta de detalle ni adorno para sentirse como en su casa. En mi caso, cero monería. Siempre lo más barato, práctico y nada conjuntado. Quién sabe siendo nómadas de alquilé, (ya que cobro cuatro duros me da igual vivir aquí que allí y ya que tengo un trabajo precario, para eso me voy moviendo de una ciudad a otra con tal de llevarme de todo aquello vivencias culturales), si en ese zulo dormiré un año, un mes o dos días.</p>
+            <p>Cuando niño, a veces me asustaba y me sorprendía cuando veía la vajilla que se expone en las vitrinas del mueble de madera estilo rústico que ocupa todo el tabique del salón. Nunca se usaba, así que nunca me acordaba de que estaban allí: aquellas copas para el Champagne, platos de porcelana blanca con el borde dorado, incluso una coctelera (que descubrí hace poco aunque siempre ahí). Todo ese ajuar que en su día recibieron mis padres cuando se casaron siempre me producía una extrañeza. Como si aquellos útiles realmente no fueran propios de nuestra casa, como si no nos perteneciesen (spoiler: sigue ocurriéndome lo mismo). Al mismo tiempo, este mueble con su ajuar siempre despertaba en mí el entusiasmo de todo explorador - casi pirata - en busca de pistas (que me condujesen a imaginarme el lugar y momento exacto en el que esos vasos y cachivaches fueron recibidos y pasar a ser de su propiedad. Quizás para quedarme tranquilo en que lo que allí se exhibía o se guardaba no eran intrusos o fantasmas), nuevos hallazgos o un tesoro.</p>
+            <p>Como decía, nada de aquello se usaba, nada salía ni entraba de esas compuertas (ni siquiera vi nunca cómo se limpiaban, ni yo las limpié, aunque siempre estaban relucientes y sin mota alguna de polvo). Lo que se guardó un día allí, allí se quedó. ¿Cápsula del tiempo o tumba?</p>
+            <p>Aún así, de una vez a otra que acudía a echar un vistazo, tenía la certeza de que aquello estaba vivo, de que dentro de ese menaje había un secreto guardado, de que ocurrían movimientos y apariciones y me proponía a pillarlos por sorpresa. Creía incluso que aquellos objetos iban transmutando y adoptando nuevas formas, como decía, por no reconocerlos como propios. ¿Por qué son tan extraños? ¿Sera que los San Martinicos los intercambien constantemente? ¿Podría dar lugar a que un día, después de mucho tiempo sin mirarlos, se hayan transformado en otros objetos totalmente? Como si una campana se tornada en cientos de monedas o como lo que le ocurrió al personaje Dr. Seth Brundle (interpretado por Jeff Goldblum) en el filme "The Fly" 1986 (Dirigida por David Cronenberg) al fusionarse genéticamente con una mosca.</p>
+            <p>Hace mucho que no abro esos cajones. No sé si es causa de aquellas falsas expectativas a la sorpresa, si todo aquello se me volvió loop monótono, o fue fruto de salir a buscarme la vida a otra ciudad… Porque ahora mismo me vuelvo a preguntar ¿qué habrá dentro de aquel mueble?</p>
+            <p>Un poco más adolescente, solía decirle a mi madre que quitara aquel mueble que poca utilidad tenía y que ocupaba tanto espacio (además de que me parecía horrible). Hoy me doy cuenta de que lo que tengo en casa se parece mucho a un museo. Lo cual, poco sentido tiene que siga diciendo: "esto pa mi ajuar" a los objetos que compro para un uso diario ya que carecen de refinamiento y oscuridad al contrario del casi intocable y casi invisible ajuar común.</p>
+          </div>
+          <span class="texto-fecha">28/07/2025</span>
+          <div class="texto-prosa" style="margin-top:1.4rem;">
+            <p>Hace un tiempo desde que escribí el texto que acabas de leer. Vuelvo tras unos meses a mi tierra, a Priego de Córdoba, por sorpresa. Por el camino me acuerdo del intocable. ¿Verlo me traería de vuelta anécdotas, pensamientos, sensaciones que no recordaba o me produciría otras nuevas?</p>
+            <p>Entro al salón y me fijo en el mueble. Para mi sorpresa, esas repisas han cambiado. Ahora hay menaje que nunca había visto en esas vitrinas: vasos modernos que no pegaban con el resto y faltaban otros objetos que ya no estaban. Esto coincidía con la reforma de la cocina, por lo que para aprovechar el hueco, aquel espacio se estaba usando por primera vez en la historia para una nueva ocupación en la que el alto menaje y el bajo menaje (el refinado y el de uso diario), se encontraban juntos, recibiendo la misma luz que entraba por el balcón y se reflejaba en el vidrio. No unos encima de los otros, pero sí juntos, compartiendo espacio unos al lado de los otros, entremezclados en ese horizonte levitado entre el suelo y el techo.</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             2. RE#
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Re#</p>
+          <div class="texto-verso">En clave de RE#,
+vuelve de lunes a viernes el ruido amarillo de los colegios a las 11:30,
+
+un nuevo mcDonalds para volver a crear la periferia,
+
+los metrónomos fluorescentes se levantan a las 5:30,
+
+para volver a creer
+
+en su ritual de tranquillo a la hora de la siesta.</div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             3. CURSILADA CONCEPTUAL
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Cursilada conceptual</p>
+          <div class="texto-espaciado">
+            <div>y el balcón</div>
+            <div class="indent-1">Se miraban desde la</div>
+            <div class="indent-3">acera</div>
+            <div>&nbsp;</div>
+            <div>desde la alacena y el interior del cajón</div>
+            <div>&nbsp;</div>
+            <div class="indent-1">Se miran desde cielo</div>
+            <div>&nbsp;</div>
+            <div>y<span class="spread">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;el&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mar</span></div>
+            <div>&nbsp;</div>
+            <div>desde la mesa y el altar</div>
+            <div>&nbsp;</div>
+            <div>Se miran y siempre se mirarán</div>
+            <div class="pregunta">¿se querrán besar?</div>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             4. OJALÁ LLUEVAN PANES
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Ojalá lluevan panes</p>
+          <div class="texto-prosa">
+            <p>Redondos, alargados, con migas blandas y cortezas crujientes.</p>
+            <p>De pueblo o de masa madre.</p>
+            <p>Recién hechos. Que todo huela a pan e inventar una palabra para ese olor, como la del petricor o la chamusquina.</p>
+            <p>Que caigan por todos lados: sobre los adoquines, los pasos de peatones, los patios, los tenderetes, por las cortinas, la mesa del salón, por los cajones, dentro de los bolsillos, encima de otras migajas.</p>
+            <p>Grandes como manos, como rostros, como cuerpos, como casas, como montañas, como palabras, como amuletos.</p>
+            <p>Aprovechar todos y cada uno de ellos, los recién hechos y los de hace unos días: para vestirnos y abrigarnos en invierno, para protegernos del sol, como expresión corporal, como instrumentos musicales y para bailar, para tapar un agujero en la pared, para hacernos la skincare, para quitarnos el hipo o los ardores, para conciliar el sueño, para escribir, para rezar, para curarnos de enfermedades, para estudiar el ciclo del pan en el colegio, para encontrar nuestro ikigai, para hacer cine, butoh… para todo.</p>
+            <p>Y amasarlos y amasarlos y amasarlos…</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             5. RÉCORD GUINESS
+        ══════════════════════════════════ -->
+        <div class="texto texto-record">
+          <p class="texto-titulo">Récord Guiness</p>
+          <div class="texto-prosa">
+            <p>Record Guiness de la bola de papel de plata más grande jamás creada en una semana (5 días realmente) por todos los alumnos de un colegio (mi colegio de la infancia). Cada día añadían el aluminio de su bocadillo a la bola madre.</p>
+          </div>
+          <div style="margin: 1.6rem 0;">
+            <div class="linea-expresiva">Arrugado repujado.</div>
+            <div class="linea-expresiva" style="margin-top:1rem;">281 personas, 562 manos prensan los 33 cm de diámetro</div>
+            <div class="linea-expresiva">pulidos en fractales espejos</div>
+            <div class="linea-expresiva" style="color: var(--color-muted); font-style: italic;">(como si una bola Disco se hiciera resolución 4k).</div>
+          </div>
+          <div class="texto-prosa">
+            <p>La dejan caer por la rampa del patio:</p>
+          </div>
+          <div class="linea-tipografica" style="margin: 1rem 0 0.4rem 0;">Poor doOnDee PaSsa ArrasSa</div>
+          <div class="linea-simbolo" style="margin-bottom: 1rem;">*~}</div>
+          <div class="texto-prosa">
+            <p style="color: var(--color-muted); font-style: italic;">(como una bola de Nieve o Miley Cyrus.)</p>
+            <p>A día de hoy la pelota sigue rodando por ahí, se ha cubierto de polvo, hojarasca y otros residuos: su opacidad se ha vuelto más opaca y más transparente al mismo tiempo.</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             6. LA FLOR ORIGINAL
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">La flor original</p>
+          <div class="texto-prosa">
+            <p>Un familiar mío, ya ancestro, se dedicaba -desde pequeño- en la casa de su abuela (por tanto, antepasado mío también - mi tátara-tátara——tiriqui-trán-trán-trero-abuela-) a dibujar toda la tarde durante esas interminables sobremesas que enlazaban con las antemesas de la cena. De soporte usaba las láminas de envolver el queso fresco, el fiambre y el pescado. Usaba hojas y hojas y hojas de aquel papel parafinado. Una vez le regalaron una libreta y la fue llenando durante años a modo de palimpsesto hasta cubrir cada unidad de cuadradillo con aquel lápiz de albañil de punta cincel. Dibujaba motivos de todo tipo y estilística pero había algo que representaba todos los días: los ornamentos de aquel mantel indivisible de la mesa camilla.</p>
+            <p>A veces también cogía una servilleta y separaba las finas láminas que reducían la opacidad del material y se disponía a calcar aquellas florituras del hule una y otra vez. Más tarde se compró algunos pigmentos para textil con la intención de inventar sus propias florituras en retales blancos de tela, pero siempre acababa volviendo al calco de la mesa.</p>
+            <p>Generaciones posteriores, siempre había alguien que, curiosamente, seguía estos mismos pasos. Sin yo tener ni idea de la existencia de esta coincidente tradición prolongada durante mis familiares, parece ser que yo mismo seguí con este legado repetitivo de copiar y copiar el patrón del hule de mi abuela, curiosamente también mediante servilletas y papel parafinado. Por supuesto, el mantel que yo copiaba, no era el mismo que el que copiaba mi tío, ni a la vez el tío de mi tío, hasta el presente. Hoy me pregunto cómo serían todos aquellos manteles que fueron transferidos. ¿Cómo sería el primero-original-detonador de este proceso plástico? A pesar de haber sido tantas veces representados (durante varios años, durante varios días, varias veces al día, por tanta gente), hoy, al no quedar registro de ninguno de ellos, ¿estarán frustradas las aspiraciones de aquellos manteles por dejar inmortalizados sus retratos?</p>
+            <p>Por su parte, las enagüillas (manta de la mesa camilla) sin miedo a lo efímero y sin afán a expectativas o legado figurativo, con su piel de franela ying-yang, cambian de tono y texturas con su movimiento pelo-contrapelo todo el tiempo. Intentar retener un gesto mínimo parece casi un milagro.</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             7. VISITA GUIADA
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Visita guiada</p>
+          <div class="texto-dialogo">
+            <p>No pongas el hule, pon el mantel del último cajón que es más curiocico.</p>
+            <p>Nunca había visto ese sacabolas de helado, ni mucho menos a mi madre usándolo pa emplatar ensaladilla rusa. Me gustaba comer del tupper ese que alimentaba a dos familias. Aunque queda mono, sí. El plato Duralex de los estrucios hoy es reemplazado por otro: opaco y de rojo nácar.</p>
+            <br>
+            <p>—Hoy ajipamos jetas (setas) fritas y conzomé. —afirma mi madre</p>
+            <p>—¿Que has traío a manzarva no? ¿qué son de ahí de la sierra de Cabra? —pregunta mi tío</p>
+            <p>—Un puñaillo namás. Pero si, de ahí de donde voy siempre. Hoy no las rifo JAJAJJAJJAJA —responde mi padre mientras se ríe mi tío también.</p>
+            <p>—¡Qué ricas!. Haber cuando me llevas que siempre que vas, traes… —mi tío</p>
+            <p>—Cuando quieras. —mi padre</p>
+            <p>—Pues ale! ¡a ponerse pujicos! —mi madre</p>
+            <br>
+            <p class="parentesis">(nunca le llevó a esos "spots." Los sitios recurrentes donde cada uno suele ir a buscar setas porque un día encontró allí mismo, son las coordenadas más secretas que todo buscador de setas lleva consigo. Si sueles ir a recolectar setas silvestres nunca llevarás a la persona a las zonas donde sueles encontrar. Son como mapas del tesoro que no compartes con nadie. Ya sea un guiri, tu amigo, tu hermano o incluso tu propio padre. Iréis "cerca" del mismo terreno sí, y le dirás que sí, que allí es donde siempre buscas, pero que casualmente hoy no hay.)</p>
+            <br>
+            <p>De postre, dulces hojaldrados de pastelería en bandeja dorada (yo procedo como costumbre a comerme mi helado al corte trisabor, escondido en la cocina), café (cuánto tiempo sin ver ese recipiente con el que cada uno se sirve su azúcar al gusto. Nunca sé donde está. Aparece de repente cuando viene alguien), conversaciones en escala Si bemol y un penduleo entre el "—que rico todo, nos vamos que esta familia tendrá que dormir" y el "—¿no queréis un cubatilla?, ¿dónde vais ya? esperarse un rato que es temprano"</p>
+            <p>Mañana se friega.</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             8. ARTESANÍA FOLCLÓRICA DE DUDOSA PROCEDENCIA
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Artesanía folclórica de dudosa procedencia</p>
+          <div class="texto-verso" style="line-height: 2.8;">
+Gusanos ya reencarnados
+
+aletean sobre especias colonizadas.
+
+
+Suenan las cigarreras, casi afónicas.
+
+Nudos mojados
+
+para vestir a las reinas.
+
+
+Sedas enredadas
+
+en cantos rodados;
+
+al aire, suenan como brasas.
+
+
+Las sardinas asustadas,
+
+mientras bailan los gitanos.</div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             9. ORO EN PAÑO
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Oro en paño</p>
+          <div class="texto-prosa">
+            <p>Tu vales mucho y así te tienes que valorar a ti mismo y punto. Y que con el que estés, te tiene que tener como oro en paño vaya. Que sea un trocico de pan igual que tú, pero de verdad. Que te tenga en un altar y no te corte las alas, al revés.</p>
+            <p>Tú brillas mucho y tienes que brillar lo que más puedas brillar tú sin compararte con naiden. Y yo sé que aunque tu te fuiste y te desprendiste de tu tierra, tus raíces siempre las tienes presentes.</p>
+          </div>
+          <div class="texto-cita">
+            «Frente a nuestra dificultad de discernir qué ley, de entre todas las que nos abruman, carga un mayor peso a nuestras espaldas, la planta no tiene dudas al respecto: la suya es la ley que la condena a la inmovilidad desde que nace hasta que muere. (…) Esta se consagra por entero a un solo propósito: ganar altura y escapar de la fatalidad del suelo; eludir, transgredir la pesada y sombría ley, liberarse, quebrar la estrecha esfera que la constriñe, inventar o invocar unas alas, evadirse lo más lejos posible, vencer el espacio al que la condena el destino, acercarse a otro reino, penetrar en un mundo movedizo y animado…»
+            <br><br>
+            <span style="color: var(--color-muted); font-size: 0.78rem;">Maeterlinck, M. (1999). <em>La inteligencia de las flores</em> (pp. 10–11). Valdemar.</span>
+          </div>
+          <div class="texto-prosa">
+            <p>Claro que una vez estés en lo más alto… ten cuidado, porque haber quién baja. A ver como cuentas a los de abajo como es estar allí arriba para que lo entiendan, o a ver como disimulas ser como antes... Hay quienes quieren estar ahí y les cuesta la vida, y la mayoría de los que pueden, no quieren. Pelo-liso / pelo-rizao.</p>
+            <p>En <em>Tres poetas del exceso</em> (Fragmenta Editorial 2011), Amador Vega nos recuerda que Angelus Silesius, en el siglo XVII, escribía en <em>El peregrino querúbico</em>:</p>
+          </div>
+          <div class="texto-verso" style="margin-top: 1rem; line-height: 2.4;">El cielo se convierte en tierra.
+
+El cielo se humilla, desciende y se convierte en tierra.
+
+¿Cuándo se levantará la tierra y se convertirá en cielo?</div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             10. LLAMADA PERDIDA
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Llamada perdida</p>
+          <div class="texto-dialogo">
+            <p style="letter-spacing: 0.12em;">Tóc to-tóc tóc, tóc&nbsp;&nbsp;&nbsp;tóc</p>
+            <br>
+            <p>Bienvenida hermana, ahora que estás protegida, bendecida y exorcizada,</p>
+            <p>dime Fátima,</p>
+            <p>¿Qué hay ahí afuera? ¿Cómo de altas son las llamas esas que dicen que queman con solo mirarlas?</p>
+            <br>
+            <p>—Pues ni buenas ni malas. Es cierto que te puedes quemar. Pero como cualquier lumbre, si te arrimas con cautela, recibes el calor que necesitas y a la distancia hace un frío de carámbanos que te deja arrecío perdío. Hay llamas que llegan al cielo, algunas incluso hasta el centro de la tierra. Pero también las hay muy apagadas como verdejo mojao. Otras en cambio no paran de danzar.</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             11. LA NIÑA DE LA CURVA
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">La niña de la curva</p>
+          <div class="texto-prosa">
+            <p>La curva empieza en el grado 0 y está al nivel del mar, luego se tira de cabeza al cielo pero se hace un semi-círculo haciendo que caiga al agua con la cabeza, el cuerpo le sigue y se hunde. Más tarde pilla el impulso de la campana y vuelve a salir a flote, donde rema al infinito.</p>
+          </div>
+          <span class="texto-instruccion">Dibújala aquí:</span>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             12. ANCA MIS ABUELAS
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">Anca mis abuelas</p>
+          <div class="texto-verso" style="line-height: 2.4;">Vuelvo a ponerme los vulanicos en la cabeza,
+
+a hacer ricia.
+
+Vuelvo a darle libertad a los avenates,
+
+a jugar como antes.</div>
+          <div class="texto-prosa" style="margin-top: 1.4rem;">
+            <p>En la casa de una abuela, cojo los huevos de las gallinas, hago formas con las gomas de los espárragos, desenredo las guitas, intento entender el mecanismo de las trampas para los ratones, cuento las hormigas del pecho de hormigón que une la cocina de leña con la cocina del brasero, rebusco en las cuadras intentando encontrar juguetes viejos, hago nudos con las cortinas que desenredo rápidamente si alguien me pilla. Haciendo esto último entraban muchas moscas a casa. En casa de la otra abuela, gasto todas las cerillas, me como todos los terrones de azúcar, intento imitar y adivinar el canto de las perdices, me encanta mirar cada pastilla de jabón casero. Estos últimos son como ladrillos de grandes. Me acuerdo que me preguntaba cómo podía alguien ducharse con ese jabón tan grande, no caía en que podía cortarse en pedazos más pequeños.</p>
+          </div>
+        </div>
+
+        <span class="texto-sep"></span>
+
+        <!-- ══════════════════════════════════
+             13. ¿QUÉ?, ¿CÓMO?, ¿CUÁNTO?, ¿DÓNDE?
+        ══════════════════════════════════ -->
+        <div class="texto">
+          <p class="texto-titulo">¿Qué?, ¿Cómo?, ¿Cuánto?, ¿Dónde?</p>
+          <div class="preguntas-lista">
+            <p>¿Qué tiene el sagrario que convierte al cuerpo en pan y al pan en cuerpo?</p>
+            <p>¿Cómo haces el cocido?</p>
+            <p>¿Cuánto perímetro abarcarán a escala los cráteres que dibujábamos de la luna?</p>
+            <p>¿Dónde se esconde un Martinico?</p>
+          </div>
+        </div>
+
+      </div><!-- /text-page-content -->
+    </div><!-- /text-page-layout -->
+  </main>
+
+  <footer>
+    <span>© 2025 Raúl Hilario Montes</span>
+  </footer>
+
+</body>
+</html>
