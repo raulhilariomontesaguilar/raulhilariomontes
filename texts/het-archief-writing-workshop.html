@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../style.css">
   <style>
     .text-body {
-      max-width: 100%;
       padding-top: 1.2rem;
     }
     .text-header {
@@ -29,30 +28,81 @@
       display: block;
     }
 
-    /* Layout principal: texto izq + carrusel dcha */
+    /* Layout: columna texto + columna carrusel */
     .workshop-layout {
       display: flex;
-      gap: 3rem;
+      gap: 4rem;
       align-items: flex-start;
     }
 
     .workshop-main {
-      flex: 1;
-      min-width: 0;
+      flex: 0 0 520px;
     }
 
-    /* Carrusel lateral */
-    .workshop-slideshow {
+    .workshop-intro p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      text-align: justify;
+      margin-bottom: 1.5rem;
+    }
+
+    .workshop-activation-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .workshop-exercises {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 3rem;
+    }
+
+    .workshop-exercise {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .workshop-exercise-letter {
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text);
       flex-shrink: 0;
-      width: 280px;
+    }
+
+    .workshop-exercise-content h3 {
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-bottom: 0.3rem;
+    }
+
+    .workshop-exercise-content p {
+      font-size: var(--body-size);
+      line-height: 1.75;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+
+    /* Carrusel derecha */
+    .workshop-slideshow {
+      flex: 1;
       position: sticky;
-      top: calc(var(--header-height) + 1rem);
+      top: calc(var(--header-height) + 1.5rem);
     }
 
     .workshop-slides {
       position: relative;
       width: 100%;
-      padding-bottom: 100%; /* cuadrado */
+      aspect-ratio: 3 / 2;
       overflow: hidden;
       background: #f4f4f4;
     }
@@ -62,27 +112,21 @@
       inset: 0;
       opacity: 0;
       transition: opacity 1.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .workshop-slide.active {
-      opacity: 1;
-    }
+    .workshop-slide.active { opacity: 1; }
 
     .workshop-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
 
     .workshop-slide-controls {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 0.5rem;
+      margin-top: 0.6rem;
     }
 
     .workshop-btn {
@@ -103,79 +147,11 @@
       letter-spacing: 0.06em;
     }
 
-    .workshop-intro {
-      margin-bottom: 3rem;
-    }
-    .workshop-intro p {
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: var(--color-text);
-      letter-spacing: 0.02em;
-      text-align: justify;
-      margin-bottom: 1.5rem;
-    }
-
-    .workshop-activation-title {
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text);
-      margin-bottom: 2rem;
-    }
-
-    .workshop-exercises {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem 3rem;
-    }
-
-    .workshop-exercise {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-
-    .workshop-exercise-letter {
-      font-size: 0.88rem;
-      letter-spacing: 0.08em;
-      color: var(--color-text);
-      flex-shrink: 0;
-      padding-top: 0.1rem;
-    }
-
-    .workshop-exercise-content h3 {
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--color-text);
-      margin-bottom: 0.3rem;
-    }
-
-    .workshop-exercise-content p {
-      font-size: var(--body-size);
-      line-height: 1.75;
-      color: var(--color-text);
-      letter-spacing: 0.02em;
-    }
-
-    /* Móvil */
     @media (max-width: 640px) {
-      .workshop-layout {
-        flex-direction: column;
-      }
-      .workshop-slideshow {
-        width: 100%;
-        position: static;
-        order: 99; /* va al final */
-      }
-      .workshop-slides {
-        padding-bottom: 100%;
-      }
-      .workshop-exercises {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
+      .workshop-layout { flex-direction: column; }
+      .workshop-main { flex: none; width: 100%; }
+      .workshop-slideshow { position: static; width: 100%; order: 99; }
+      .workshop-exercises { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -204,20 +180,19 @@
 
       <div class="workshop-layout">
 
-        <!-- Texto principal -->
         <div class="workshop-main">
-
           <div class="workshop-intro">
-            <p>Through a series of writing exercises, participants will generate texts that will be deposited into the slots of the nine devices that make up the installation. Each of them already contains a previously inserted text. By participating, visitors become part of the work.</p>
+            <p>Through a series of writing exercises, participants will generate texts that will be deposited into the slots of the nine devices that make up the installation.</p>
+            <p>Each of them already contains a previously inserted text. By participating, visitors become part of the work.</p>
             <p>Until now, the texts inserted by the artist have remained undisclosed. In this way, for the remainder of the exhibition, both those who write and those who visit will share the same condition: that of a content that is present yet inaccessible, intimate and hidden.</p>
-            <p>The work is based on the idea that language is not fixed, but constantly transforms through its everyday use: in gestures, in movements, in errors and misunderstandings. In that intermediate space —between what is said and what is interpreted— new possibilities of meaning emerge. The devices operate as zones of transition between the public and the intimate, between interior and exterior.</p>
+            <p>The work is based on the idea that language is not fixed, but constantly transforms through its everyday use: in gestures, in movements, in errors and misunderstandings.</p>
+            <p>In that intermediate space —between what is said and what is interpreted— new possibilities of meaning emerge. The devices operate as zones of transition between the public and the intimate, between interior and exterior.</p>
             <p>The texts you write will remain as part of an ephemeral archive, in continuous displacement within the exhibition space, with the possibility of a future publication in which they may come to light.</p>
           </div>
 
           <p class="workshop-activation-title">Activation of the piece:</p>
 
           <div class="workshop-exercises">
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">A/</span>
               <div class="workshop-exercise-content">
@@ -225,7 +200,6 @@
                 <p>Include a proverb / saying / common phrase</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">I/</span>
               <div class="workshop-exercise-content">
@@ -233,7 +207,6 @@
                 <p>Describe a space or object in detail without looking at it.</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">O/</span>
               <div class="workshop-exercise-content">
@@ -241,7 +214,6 @@
                 <p>List or introduce, repeatedly, words that resonate with you (from home, friends, frequent ones, favourites…).</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">D/</span>
               <div class="workshop-exercise-content">
@@ -249,7 +221,6 @@
                 <p>Write to a reader as if you already knew each other.</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">L/</span>
               <div class="workshop-exercise-content">
@@ -257,7 +228,6 @@
                 <p>Write about things that are not accessible to the eye at first glance.</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">R/</span>
               <div class="workshop-exercise-content">
@@ -265,7 +235,6 @@
                 <p>Rewrite a poem by another author.</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">E/</span>
               <div class="workshop-exercise-content">
@@ -273,7 +242,6 @@
                 <p>Make a list by precisely enumerating places you usually pass through.</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">N/</span>
               <div class="workshop-exercise-content">
@@ -281,7 +249,6 @@
                 <p>Position yourself in front of a work in the space and write or draw the sound it transmits, or imagine its tone if it could speak.</p>
               </div>
             </div>
-
             <div class="workshop-exercise">
               <span class="workshop-exercise-letter">S/</span>
               <div class="workshop-exercise-content">
@@ -289,11 +256,10 @@
                 <p>Pass the text through a time machine.</p>
               </div>
             </div>
-
           </div>
-        </div><!-- /workshop-main -->
+        </div>
 
-        <!-- Carrusel lateral -->
+        <!-- Carrusel -->
         <div class="workshop-slideshow">
           <div class="workshop-slides">
             <div class="workshop-slide active"><img src="../images/taller1.png" alt=""></div>
@@ -310,33 +276,26 @@
           </div>
         </div>
 
-      </div><!-- /workshop-layout -->
+      </div>
     </div>
   </main>
 
-  <footer>
-    <span>© 2025 Raúl Hilario Montes</span>
-  </footer>
+  <footer><span>© 2025 Raúl Hilario Montes</span></footer>
 
   <script>
     const slides = Array.from(document.querySelectorAll('.workshop-slide'));
     const total = slides.length;
     let current = 0;
-    let blocked = false;
     document.getElementById('wTotal').textContent = total;
-
     function goTo(n) {
       slides[current].classList.remove('active');
       current = (n + total) % total;
       slides[current].classList.add('active');
       document.getElementById('wCurrent').textContent = current + 1;
     }
-
     document.getElementById('wNext').addEventListener('click', () => goTo(current + 1));
     document.getElementById('wPrev').addEventListener('click', () => goTo(current - 1));
     setInterval(() => goTo(current + 1), 5000);
-
-    // Touch
     let tx = 0;
     const ss = document.querySelector('.workshop-slides');
     ss.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive: true});
