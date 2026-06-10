@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Llegará una brisa y acariciará las cuerdas — Raúl Hilario Montes</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .text-page-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .text-page-left {
+      flex-shrink: 0;
+      width: 13rem;
+      padding-top: 1.2rem;
+    }
+
+    .text-page-meta {
+      font-size: var(--meta-size);
+      color: var(--color-muted);
+      letter-spacing: 0.08em;
+      line-height: 2;
+      display: block;
+    }
+
+    .text-page-meta-note {
+      font-size: var(--meta-size);
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      display: block;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .text-page-content {
+      flex: 1;
+      padding-top: 1.2rem;
+    }
+
+    /* Cabecera: título izquierda + cita derecha */
+    .brisa-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .brisa-header-title {
+      font-size: var(--meta-size);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      line-height: 1.8;
+      max-width: 40%;
+    }
+
+    .brisa-header-title span {
+      display: block;
+      font-size: var(--meta-size);
+      color: var(--color-muted);
+      text-transform: none;
+      letter-spacing: 0.04em;
+      margin-top: 0.4rem;
+      font-style: italic;
+    }
+
+    .brisa-header-cita {
+      font-size: var(--meta-size);
+      color: var(--color-text);
+      letter-spacing: 0.04em;
+      line-height: 1.9;
+      text-align: right;
+      max-width: 50%;
+    }
+
+    .brisa-header-cita .cita-autor {
+      display: block;
+      margin-top: 0.4rem;
+      color: var(--color-muted);
+      font-style: italic;
+    }
+
+    /* Cuerpo de texto */
+    .brisa-body {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      text-align: justify;
+    }
+
+    .brisa-body p {
+      margin-bottom: 1.4rem;
+    }
+
+    /* Poema tripartito */
+    .brisa-poema {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .poema-izq {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      white-space: pre-wrap;
+      flex: 1;
+      text-align: left;
+    }
+
+    .poema-centro {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      white-space: pre-wrap;
+      flex: 1;
+      text-align: center;
+    }
+
+    .poema-der {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      white-space: pre-wrap;
+      flex: 1;
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .text-page-layout {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .text-page-left {
+        width: 100%;
+        padding-top: 0;
+      }
+      .text-page-content {
+        padding-top: 0;
+      }
+      .brisa-header {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .brisa-header-title,
+      .brisa-header-cita {
+        max-width: 100%;
+        text-align: left;
+      }
+      .brisa-poema {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .poema-centro,
+      .poema-der {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../index.html" class="site-name">Raúl Hilario Montes</a>
+    <nav>
+      <a href="../projects.html">Projects</a>
+      <a href="../texts.html" class="active">Texts</a>
+      <a href="../cv.html">CV</a>
+      <a href="../info.html">Info</a>
+    </nav>
+  </header>
+
+  <main>
+    <a href="../texts.html" class="back-link">← Texts</a>
+
+    <article class="project-single">
+      <div class="project-header">
+        <h1>Llegará una brisa y acariciará las cuerdas</h1>
+      </div>
+    </article>
+
+    <div class="text-page-layout">
+
+      <div class="text-page-left">
+        <span class="text-page-meta">Raúl Hilario Montes</span>
+        <span class="text-page-meta">2022</span>
+        <span class="text-page-meta-note">Texto con motivo de la exposición de Elena Lara</span>
+      </div>
+
+      <div class="text-page-content">
+
+        <!-- Cabecera: título izq + cita der -->
+        <div class="brisa-header">
+          <div class="brisa-header-title">
+            Llegará una brisa y acariciará las cuerdas
+            <span>Texto con motivo de la exposición de la artista Elena Lara en Espacio Lavadero, Granada. 2022.</span>
+          </div>
+          <div class="brisa-header-cita">
+            «Dejo mi arpa en la mesa curvada,<br>
+            Sentado ahí ocioso, solo con emociones dentro.<br>
+            ¿Por qué molestarme en tocar?<br>
+            Llegará una brisa y acariciará las cuerdas».
+            <span class="cita-autor">El Arpa, Po Chü-I (772/846)</span>
+          </div>
+        </div>
+
+        <!-- Cuerpo de texto -->
+        <div class="brisa-body">
+          <p>Pincho aquí y me voy allí, las indicaciones dicen que vaya por allí, pero mejor sigo por aquí. Voy pinchando y me voy llendo. Acepto una sugerencia, camino, y pincho. Me doy media vuelta. —¿Quizás quiso decir....?— Eso lo dirás tú. Me voy acercando y alejando. Luego me voy dejando migas de pan.</p>
+
+          <p>LLEGARÁ UNA BRISA Y ACARICIARÁ LAS CUERDAS, podría considerarse como una lista de partituras que nacen en primera instancia por el mero hecho de existir, de ser compuestas. La elaboración de una Playlist es, antes que todo escrita mediante agrupación (que no colección), luego son escuchadas en orden o aleatoriamente. Elena Lara nos transporta a ese espacio donde surgen los recorridos imprevisibles. La artista rehúne una serie de dispositivos provocando el azar para que el espectador libre, activo y sin anuncios, permute hacia adelante o hacia atrás las pistas creando su propia ruta y experiencia.</p>
+
+          <p>La obra multidisciplinar de la artista, no se entiende como una suma de datos visuales, táctiles, sonoros... sino que se sitúa en el umbral del equilibrio de todos los sentidos como un total; una estructura única que habla de su forma de comprender y relacionarse con el mundo. De esta forma, la instalación sugiere un diálogo donde se cuestiona las diferentes relaciones que tenemos con los objetos y el espacio que habitamos. ¿Las piezas tienen más volumen al tocar sus cuerdas o gritan a la distancia por ser observadas? ¿el espectador suena por ser visto por el objeto? ¿De qué tipo de volumen hablamos? En los Deep Listenings y Sonic Meditations, Pauline Oliveros ya elaboraba piezas inclusivas que pudieran ser tocadas o llevadas a cabo por cualquier persona. Oliveros afirmó en una entrevista: «Cada "Meditación Sonora" supone un procedimiento especial para: 1. Producir sonidos, 2. Imaginar activamente sonidos, 3. Escuchar sonidos presentes, 4. Recordar sonidos(...) escuchar a la escucha». La artista entendía la meditación como la focalización sin distracción en una idea, un objeto o la falta de un objeto.</p>
+
+          <p>Los materiales que conforman la muestra, funcionan como una serie de transcripciones fonéticas que ensambladas, componen un nuevo lenguaje. En 1961, en el programa dedicado a la obra de Terry Jennings, G.Maciunas anunciaba «Hay que entender que en la nueva música, lo audible y lo visible se superponen. Es lo que se llama música de acción». Elena, compone una cadencia con sus artefactos y consigue "hacer hablar" a la imagen, regalándonos un eco constante. Recordemos la película El tercer hombre de Carol Reed (1949), cuando nos describía la arquitectura del eco de los túneles subterráneos de Viena. El protagonista Orson Welles decía: «Nuestros oídos reciben el impacto tanto de la longitud del túnel como de su forma cilíndrica»</p>
+
+          <p>E. Lara nos aventura en un espacio donde no hay jerarquías. El conjunto de cada elemento de la instalación, la sala de exposiciones y los visitantes, tienen para la artista el mismo protagonismo. De hecho, será ese desplazamiento horizontal en el espacio y el tiempo —la distancia y el acercamiento a su obra—, el que irá transmutando como un continuum y enriqueciendo la muestra: una atmósfera de seducción en la que tanto el que toma la actitud de voyeur, como el que quiere dejar de serlo, como el que nunca lo fue, serán en todo momento activadores de los dispositivos. Jean Starovinsky en El ojo vivo (p.66) afirma: «La mirada se limita difícilmente a la mera confirmación de las apariencias. Está en su misma naturaleza exigir más. Esta impaciencia se apodera de todos los sentidos. Más allá de las sinestesias habituales, cada sentido aspira a intercambiar sus poderes (...) Ver, abre todo el espacio al deseo, pero al deseo no le basta con ver. El espacio visible es a la vez testimonio de mi poder para descubir y de mi impotencia para alcanzar (...) No hay paz para quien tiene los ojos abiertos, ni para quien sabe que es visto».</p>
+
+          <p>Desde la primera mirada a la exposición, ya se puede sentir la tensión que respiran las piezas. Pareciendo que en cualquier momento fueran a acontecer algo de manera autónoma. Heidegger en "La mano que piensa": «La esencia de la mano nunca puede determinarse ni explicarse como la de un órgano que agarra (...) Toda acción de la mano está enraizada en el pensamiento.» Completo esta cita con otra de G.Bachelard en "El Agua y los Sueños" «Incluso la mano tiene sus sueños y supuestos. Nos ayuda a entender la esencia más íntima de la materia. Es por ello que también nos ayuda a imaginar formas de la materia». Llegará una brisa y acariciará las cuerdas nos evoca la voz de las naranjas, las imagen del aire, la textura del lenguaje, un camino hacia lo oculto...</p>
+        </div>
+
+        <!-- Poema tripartito -->
+        <div class="brisa-poema">
+          <div class="poema-izq">No te veo
+no me mires,
+tócame.
+No me toques,
+mírame
+,ahora sí
+te veo</div>
+
+          <div class="poema-centro">Estaba muy bien
+solo
+ahora los dos aquí.
+Espero que me
+alcances,
+atrápame.
+espero que me
+choques,
+¡manifiéstate!
+ahora los dos
+aquí
+como uno hemos
+nacido.</div>
+
+          <div class="poema-der">Ahora te escucho,
+ahora sí.
+Ahora que escribes,
+léeme.
+Te toca a tí
+huele a nuevo.</div>
+        </div>
+
+      </div><!-- /text-page-content -->
+    </div><!-- /text-page-layout -->
+  </main>
+
+  <footer>
+    <span>© 2025 Raúl Hilario Montes</span>
+  </footer>
+
+</body>
+</html>
