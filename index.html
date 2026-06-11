@@ -68,15 +68,32 @@
 
   <script>
     const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
     let current = 0;
+    let paused = false;
+    const ss = document.querySelector('.slideshow');
 
     function next() {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
+      if (!paused) {
+        slides[current].classList.remove('active');
+        current = (current + 1) % total;
+        slides[current].classList.add('active');
+      }
     }
 
-    setInterval(next, 5000);
+    // Primera imagen dura más
+    setTimeout(function() {
+      next();
+      setInterval(next, 5000);
+    }, 8000);
+
+    // Pausa al hover (desktop)
+    ss.addEventListener('mouseenter', () => { paused = true; });
+    ss.addEventListener('mouseleave', () => { paused = false; });
+
+    // Pausa al touch (móvil)
+    ss.addEventListener('touchstart', () => { paused = true; }, {passive: true});
+    ss.addEventListener('touchend', () => { paused = false; }, {passive: true});
   </script>
 
 </body>
