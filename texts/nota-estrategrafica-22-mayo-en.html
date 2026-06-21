@@ -49,12 +49,12 @@
 
     .text-page-content {
       flex: 1;
-      max-width: 640px;
+      max-width: 920px;
       padding-top: 1.2rem;
     }
 
     .estrato {
-      margin-bottom: 2.6rem;
+      margin-bottom: 2.2rem;
     }
 
     .estrato-titulo {
@@ -63,7 +63,8 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--color-text);
-      margin-bottom: 0.9rem;
+      display: inline;
+      margin-right: 0.6rem;
     }
 
     .estrato-body {
@@ -74,23 +75,39 @@
       text-align: justify;
     }
 
-    .estrato-verso {
+    .estrato-body p {
+      display: inline;
+    }
+
+    /* Estrato 5 — poema tripartito */
+    .estrato5-poema {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-top: 0.6rem;
+    }
+
+    .estrato5-col {
+      flex: 1;
       font-size: 0.88rem;
       line-height: 1.95;
       color: var(--color-text);
       letter-spacing: 0.02em;
+      white-space: pre-wrap;
     }
 
-    .estrato-verso .pareja {
-      margin-bottom: 1.3rem;
-    }
+    .estrato5-col-izq { text-align: left; }
+    .estrato5-col-centro { text-align: center; }
+    .estrato5-col-der { text-align: right; }
 
     .palabras-finales {
       font-size: 0.88rem;
-      line-height: 1.95;
+      line-height: 1.6;
       color: var(--color-text);
       letter-spacing: 0.02em;
-      margin-top: 1.6rem;
+      margin-top: 0.6rem;
+      text-align: center;
     }
 
     .nota-fecha {
@@ -102,7 +119,10 @@
     }
 
     .jesse-carousel-wrap {
-      margin-top: 4rem;
+      margin-top: 1.6rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @media (max-width: 640px) {
@@ -117,6 +137,17 @@
       .text-page-content {
         max-width: 100%;
         padding-top: 0;
+      }
+      .estrato5-poema {
+        flex-direction: column;
+        gap: 1.6rem;
+      }
+      .estrato5-col-centro,
+      .estrato5-col-der {
+        text-align: left;
+      }
+      .palabras-finales {
+        text-align: left;
       }
     }
   </style>
@@ -190,47 +221,28 @@
 
         <div class="estrato">
           <p class="estrato-titulo">Estratum 5</p>
-          <div class="estrato-verso">
-            <div class="pareja">
-              <div>The lights have had their speakers switched off</div>
-              <div>and a choir switched on.</div>
-            </div>
-            <div class="pareja">
-              <div>The legs have lost their chair</div>
-              <div>and have been left with a break.</div>
-            </div>
-            <div class="pareja">
-              <div>Is the sun that enters through my balcony</div>
-              <div>the same one that comes out through your window?</div>
-            </div>
-            <div class="pareja">
-              <div>Perhaps if I follow the path of the ray that touches me,</div>
-              <div>I'll manage to reach the alchemical centre that reflects a new warmth in you.</div>
-            </div>
-            <div class="pareja">
-              <div>The legs have grown without vertigo</div>
-              <div>and the ghost takes a seat.</div>
-            </div>
-            <div class="pareja">
-              <div>The lights have melted</div>
-              <div>and desire calls them in silence.</div>
-            </div>
-            <div class="pareja">
-              <div>Is the shadow cast by the elms</div>
-              <div>the same as the one cast by a cornice?</div>
-            </div>
-            <div class="pareja">
-              <div>Perhaps if I follow its fold,</div>
-              <div>I'll manage to turn it over.</div>
+          <div class="estrato5-poema">
+            <div class="estrato5-col estrato5-col-izq">The lights have had their speakers switched off
+and a choir switched on.
+The legs have lost their chair
+and have been left with a break.
+Is the sun that enters through my balcony
+the same one that comes out through your window?
+Perhaps if I follow the path of the ray that touches me,
+I'll manage to reach the alchemical centre that reflects a new warmth in you.</div>
+
+            <div class="estrato5-col estrato5-col-centro">
+              <div class="palabras-finales">Layers,<br>leyes,<br>liers,<br>loyal,<br>luna.</div>
             </div>
 
-            <div class="palabras-finales">
-              Layers,<br>
-              leyes,<br>
-              liers,<br>
-              loyal,<br>
-              luna.
-            </div>
+            <div class="estrato5-col estrato5-col-der">The legs have grown without vertigo
+and the ghost takes a seat.
+The lights have melted
+and desire calls them in silence.
+Is the shadow cast by the elms
+the same as the one cast by a cornice?
+Perhaps if I follow its fold,
+I'll manage to turn it over.</div>
           </div>
         </div>
 

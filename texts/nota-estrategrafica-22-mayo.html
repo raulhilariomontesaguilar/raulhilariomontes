@@ -49,12 +49,12 @@
 
     .text-page-content {
       flex: 1;
-      max-width: 640px;
+      max-width: 920px;
       padding-top: 1.2rem;
     }
 
     .estrato {
-      margin-bottom: 2.6rem;
+      margin-bottom: 2.2rem;
     }
 
     .estrato-titulo {
@@ -63,7 +63,8 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--color-text);
-      margin-bottom: 0.9rem;
+      display: inline;
+      margin-right: 0.6rem;
     }
 
     .estrato-body {
@@ -74,29 +75,40 @@
       text-align: justify;
     }
 
-    /* Estrato 5 — verso */
-    .estrato-verso {
+    .estrato-body p {
+      display: inline;
+    }
+
+    /* Estrato 5 — poema tripartito */
+    .estrato5-poema {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-top: 0.6rem;
+    }
+
+    .estrato5-col {
+      flex: 1;
       font-size: 0.88rem;
       line-height: 1.95;
       color: var(--color-text);
       letter-spacing: 0.02em;
+      white-space: pre-wrap;
     }
 
-    .estrato-verso .pareja {
-      margin-bottom: 1.3rem;
-    }
-
-    .estrato-verso .pareja div:first-child {
-      margin-bottom: 0;
-    }
+    .estrato5-col-izq { text-align: left; }
+    .estrato5-col-centro { text-align: center; }
+    .estrato5-col-der { text-align: right; }
 
     /* Bloque de palabras finales */
     .palabras-finales {
       font-size: 0.88rem;
-      line-height: 1.95;
+      line-height: 1.6;
       color: var(--color-text);
       letter-spacing: 0.02em;
-      margin-top: 1.6rem;
+      margin-top: 0.6rem;
+      text-align: center;
     }
 
     /* Fecha final */
@@ -110,7 +122,10 @@
 
     /* Carrusel inferior */
     .jesse-carousel-wrap {
-      margin-top: 4rem;
+      margin-top: 1.6rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @media (max-width: 640px) {
@@ -125,6 +140,17 @@
       .text-page-content {
         max-width: 100%;
         padding-top: 0;
+      }
+      .estrato5-poema {
+        flex-direction: column;
+        gap: 1.6rem;
+      }
+      .estrato5-col-centro,
+      .estrato5-col-der {
+        text-align: left;
+      }
+      .palabras-finales {
+        text-align: left;
       }
     }
   </style>
@@ -198,47 +224,28 @@
 
         <div class="estrato">
           <p class="estrato-titulo">Estrato 5</p>
-          <div class="estrato-verso">
-            <div class="pareja">
-              <div>A las luces se le han apagado las bocinas y</div>
-              <div>se le ha encendido un coro.</div>
-            </div>
-            <div class="pareja">
-              <div>A las patas se le ha caído la silla y</div>
-              <div>se le ha quedado un roto.</div>
-            </div>
-            <div class="pareja">
-              <div>¿Es el sol que entra por mi balcón,</div>
-              <div>el mismo que sale por tu ventana?</div>
-            </div>
-            <div class="pareja">
-              <div>Quizá si sigo el trazo del rayo que me toca,</div>
-              <div>consiga llegar al centro alquímico que refleja en tí un nuevo calor.</div>
-            </div>
-            <div class="pareja">
-              <div>Las patas han crecido sin vértigo y</div>
-              <div>el fantasma toma asiento.</div>
-            </div>
-            <div class="pareja">
-              <div>Las luces se han derretido y</div>
-              <div>el deseo las llama en silencio.</div>
-            </div>
-            <div class="pareja">
-              <div>¿Es la sombra que dan los olmos</div>
-              <div>la misma que da una cornisa?</div>
-            </div>
-            <div class="pareja">
-              <div>Quizá si sigo su repliegue,</div>
-              <div>consiga darle la vuelta.</div>
+          <div class="estrato5-poema">
+            <div class="estrato5-col estrato5-col-izq">A las luces se le han apagado las bocinas y
+se le ha encendido un coro.
+A las patas se le ha caído la silla y
+se le ha quedado un roto.
+¿Es el sol que entra por mi balcón,
+el mismo que sale por tu ventana?
+Quizá si sigo el trazo del rayo que me toca,
+consiga llegar al centro alquímico que refleja en tí un nuevo calor.</div>
+
+            <div class="estrato5-col estrato5-col-centro">
+              <div class="palabras-finales">Layers,<br>leyes,<br>liers,<br>loyal,<br>luna.</div>
             </div>
 
-            <div class="palabras-finales">
-              Layers,<br>
-              leyes,<br>
-              liers,<br>
-              loyal,<br>
-              luna.
-            </div>
+            <div class="estrato5-col estrato5-col-der">Las patas han crecido sin vértigo y
+el fantasma toma asiento.
+Las luces se han derretido y
+el deseo las llama en silencio.
+¿Es la sombra que dan los olmos
+la misma que da una cornisa?
+Quizá si sigo su repliegue,
+consiga darle la vuelta.</div>
           </div>
         </div>
 
